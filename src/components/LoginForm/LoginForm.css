@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 448px;
+}
+.container .header {
+    display: inherit;
+    text-align: center;
+    
+}
+.container .header .logo {
+    height: 110px;
+  }
+  .container .header p {
+    margin: 0;
+    letter-spacing: 0.2px;
+  }
+  .container .header > p:first-of-type {
+    font-weight: 700;
+    font-size: 1.875rem;
+    margin-bottom: 5px;
+  }
+  .container .header > p:last-of-type {
+    font-weight: 500;
+  }
+  .container .body {
+    display: inherit;
+    flex-direction: inherit;
+    row-gap: 20px;
+    padding: 30px 28px;
+  }
+  .container .body > label {
+    display: inherit;
+    flex-direction: inherit;
+    row-gap: 5px;
+    font-weight: 500;
+    font-size: 15px;
+  }
