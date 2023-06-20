@@ -9,9 +9,9 @@ function BaseLayout({ children, titleName }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <SideBarItem collapsed={collapsed} />
+      <HeaderItem collapsed={collapsed} setCollapsed={setCollapsed} />
       <Layout>
-        <HeaderItem collapsed={collapsed} setCollapsed={setCollapsed} />
+        <SideBarItem collapsed={collapsed} />
         <Content style={{ margin: '0 16px' }}>
           <Typography.Title level={2}>{titleName}</Typography.Title>
           {children}

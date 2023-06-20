@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Tag, Space, Row, Button, Modal } from 'antd';
 import { BaseLayout } from '../../components/BaseLayout';
-import { getAllUsers, AddUser } from '../../store/actions/users.action';
+import { getAllUsers, AddUser, DeleteUser } from '../../store/actions/users.action';
 import { UserForm } from '../../components/UserForm';
 
 function User() {
@@ -20,14 +20,15 @@ function User() {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
+  const handleOk = async () => {
     const formData = new FormData();
     formData.append('fullname', fullname);
     formData.append('username', username);
     formData.append('password', password);
     formData.append('phone', phone);
     formData.append('role', idRole);
-    dispatch(AddUser({ formData }));
+    await dispatch(AddUser({ formData }));
+    await dispatch(getAllUsers());
     setIsModalOpen(false);
 
     handleUsernameChange('');
@@ -77,10 +78,18 @@ function User() {
     },
     {
       title: 'Действия',
-      key: 'action',
-      render: () => (
+      dataIndex: 'id',
+      key: 'id',
+      render: (id) => (
         <Space size="middle">
-          <a>Удалить</a>
+          <Button
+            onClick={async () => {
+              await dispatch(DeleteUser(id));
+              await dispatch(getAllUsers());
+            }}
+          >
+            Удалить
+          </Button>
         </Space>
       ),
     },

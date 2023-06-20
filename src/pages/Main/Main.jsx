@@ -1,34 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal, Button } from 'antd';
 import { BaseLayout } from '../../components/BaseLayout';
 import { CalendarForm } from '../../components/CalendarForm';
+import { EventForm } from '../../components/Event/EventForm';
+import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
 function Main() {
-  const events = [
-    {
-      title: 'Врач1 - Петренко Н.В. \n пациент',
-      start: new Date('2023-05-28T10:00:00'),
-      end: new Date('2023-05-28T13:00:00'),
-    },
-    {
-      title: 'Врач2 - Петренко Н.В. \n пациент',
-      start: new Date('2023-05-28T10:00:00'),
-      end: new Date('2023-05-28T13:00:00'),
-    },
-    {
-      title: 'Врач3 - Петренко Н.В. \n пациент',
-      start: new Date('2023-05-28T10:00:00'),
-      end: new Date('2023-05-28T13:00:00'),
-    },
-    {
-      title: 'Врач4 - Петренко Н.В. \n пациент',
-      start: new Date('2023-05-28T10:00:00'),
-      end: new Date('2023-05-28T13:00:00'),
-    },
-  ];
-  const [allEvents, setAllEvents] = useState(events);
+  const dispatch = useDispatch();
+  const scheduleEvents = useSelector((store) => store.scheduleReducer?.schedule);
+  useEffect(() => {
+    // выдать всех пользователей
+    dispatch(getAllShedule());
+  }, []);
+
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <BaseLayout titleName="Расписание">
@@ -37,8 +32,33 @@ function Main() {
           setSelectedStartDate={setSelectedStartDate}
           setSelectedEndDate={setSelectedEndDate}
           setIsModalOpen={setIsModalOpen}
-          allEvents={allEvents}
+          allEvents={scheduleEvents}
         />
+        <Modal
+          title="Создать пользователя"
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Закрыть
+            </Button>,
+            <Button key="submit" type="primary" onClick={handleOk}>
+              Сохранить
+            </Button>,
+          ]}
+          open={isModalOpen}
+        >
+          <EventForm
+            event={{
+              start: selectedStartDate,
+              end: selectedEndDate,
+              title: '',
+              doctor: '',
+              phone: '',
+              description: '',
+            }}
+          />
+        </Modal>
       </div>
     </BaseLayout>
   );

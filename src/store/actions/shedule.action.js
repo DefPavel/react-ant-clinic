@@ -4,12 +4,12 @@ import axios from 'axios';
 
 const host = 'http://localhost:8080';
 
-export const getAllUsers = createAsyncThunk('users/getAll', async (thunkApi) => {
+export const getAllShedule = createAsyncThunk('schedule/get', async (thunkApi) => {
   try {
     const cookies = new Cookies();
     const response = await axios({
       method: 'get',
-      url: `${host}/api/users/get`,
+      url: `${host}/api/schedule/get`,
       headers: {
         'Content-Type': 'application/json',
         'auth-token': cookies.get('auth-token'),
@@ -21,30 +21,13 @@ export const getAllUsers = createAsyncThunk('users/getAll', async (thunkApi) => 
   }
 });
 
-export const AddUser = createAsyncThunk('users/insert', async ({ formData }, thunkApi) => {
+export const addShedule = createAsyncThunk('schedule/insert', async ({ formData }, thunkApi) => {
   try {
     const cookies = new Cookies();
     const response = await axios({
       method: 'post',
-      url: `${host}/api/users/register`,
+      url: `${host}/api/schedule/create`,
       data: formData,
-      headers: {
-        'Content-Type': 'application/json',
-        'auth-token': cookies.get('auth-token'),
-      },
-    });
-    return response.data;
-  } catch (e) {
-    return thunkApi.rejectWithValue(e?.response?.data?.error || 'Произошла непредвиденная ошибка');
-  }
-});
-
-export const DeleteUser = createAsyncThunk('users/delete', async (id, thunkApi) => {
-  try {
-    const cookies = new Cookies();
-    const response = await axios({
-      method: 'delete',
-      url: `${host}/api/users/del/${id}`,
       headers: {
         'Content-Type': 'application/json',
         'auth-token': cookies.get('auth-token'),

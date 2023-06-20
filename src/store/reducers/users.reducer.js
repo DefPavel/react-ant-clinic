@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllUsers } from '../actions/users.action';
+import { getAllUsers, DeleteUser } from '../actions/users.action';
 import { defaultFulfilledReducer, pendingReducer, rejectedReducer } from './base.reducer';
 
 const initialState = {
@@ -18,6 +18,9 @@ export const userReducer = createSlice({
     },
     [getAllUsers.pending]: pendingReducer,
     [getAllUsers.rejected]: rejectedReducer,
+    [DeleteUser.fulfilled]: defaultFulfilledReducer,
+    [DeleteUser.pending]: pendingReducer,
+    [DeleteUser.rejected]: rejectedReducer,
   },
 });
 

@@ -9,13 +9,7 @@ function UserForm({
   handleSelectedChange = (f) => f,
 }) {
   return (
-    <Form
-      size="large"
-      labelCol={{ span: 4 }}
-      wrapperCol={{ span: 14 }}
-      layout="horizontal"
-      style={{ maxWidth: 600, marginTop: '3rem' }}
-    >
+    <Form layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
       <Form.Item label="ФИО">
         <Input onChange={(e) => handleFullNameChange(e.target.value)} />
       </Form.Item>

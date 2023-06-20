@@ -6,7 +6,7 @@ import {
   ReloadOutlined,
 } from '@ant-design/icons';
 import Cookies from 'universal-cookie/es6';
-import { Layout, Button } from 'antd';
+import { Layout, Button, Space } from 'antd';
 
 const { Header } = Layout;
 
@@ -20,38 +20,50 @@ function HeaderItem({ collapsed = false, setCollapsed = (f) => f }) {
   };
 
   return (
-    <Header style={{ padding: 0, fontWeight: '500', backgroundColor: '#ffffff' }}>
+    <Header
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '4px 4px 4px 10px',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.15)',
+        fontWeight: '500',
+        backgroundColor: '#ffffff',
+      }}
+    >
       <Button
         type="text"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         onClick={() => setCollapsed(!collapsed)}
         style={{
-          fontSize: '18px',
-          width: 60,
-          height: 60,
+          fontSize: '20px',
+          width: 63,
+          height: 63,
         }}
       />
 
-      <Button
-        type="text"
-        icon={<ReloadOutlined />}
-        onClick={() => window.location.reload()}
-        style={{
-          fontSize: '18px',
-          width: 60,
-          height: 60,
-        }}
-      />
-      <Button
-        type="text"
-        icon={<ExportOutlined />}
-        onClick={exit}
-        style={{
-          fontSize: '18px',
-          width: 60,
-          height: 60,
-        }}
-      />
+      <Space>
+        <Button
+          type="text"
+          icon={<ReloadOutlined />}
+          onClick={() => window.location.reload()}
+          style={{
+            fontSize: '20px',
+            width: 63,
+            height: 63,
+          }}
+        />
+        <Button
+          type="text"
+          icon={<ExportOutlined />}
+          onClick={exit}
+          style={{
+            fontSize: '18px',
+            width: 60,
+            height: 60,
+          }}
+        />
+      </Space>
     </Header>
   );
 }
