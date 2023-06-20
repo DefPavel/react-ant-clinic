@@ -14,7 +14,6 @@ function SideBarItem({ collapsed = false, selectedKeys = '2' }) {
         style={{ marginTop: '10px', fontWeight: '500' }}
         theme="light"
         mode="inline"
-        selectedKeys={[selectedKeys]}
         items={[
           {
             key: '1',
