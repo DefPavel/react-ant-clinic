@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Login } from '../pages/Login/Login';
-import { LoginMiddleware } from './middlewares/privates.middleware';
-/* import { Home } from '../pages/Home/Home';
+import { LoginMiddleware, SecretMiddleware } from './middlewares/privates.middleware';
+import { Main } from '../pages/Main/Main';
+import { User } from '../pages/User';
+/* 
 import { NotFound } from '../pages/NotFound';
 import { Users } from '../pages/Users';
 */
@@ -20,6 +22,8 @@ function Router() {
             </LoginMiddleware>
           }
         />
+        <Route path="/" exact element={<Main />} />
+        <Route path="/users" exact element={<User />} />
       </Routes>
     </BrowserRouter>
   );
