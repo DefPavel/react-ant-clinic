@@ -14,6 +14,32 @@ function Main() {
     dispatch(getAllShedule());
   }, []);
 
+  // почему-то как только приходит с api на недели и дне fatal error date[("get" + method)] is not a function
+  // https://github.com/jquense/react-big-calendar/issues/163
+
+  const events = [
+    {
+      title: 'Врач1 - Петренко Н.В. \n пациент',
+      start: new Date('2023-05-28T10:00:00'),
+      end: new Date('2023-05-28T13:00:00'),
+    },
+    {
+      title: 'Врач2 - Петренко Н.В. \n пациент',
+      start: new Date('2023-05-28T10:00:00'),
+      end: new Date('2023-05-28T13:00:00'),
+    },
+    {
+      title: 'Врач3 - Петренко Н.В. \n пациент',
+      start: new Date('2023-05-28T10:00:00'),
+      end: new Date('2023-05-28T13:00:00'),
+    },
+    {
+      title: 'Врач4 - Петренко Н.В. \n пациент',
+      start: new Date('2023-05-28T10:00:00'),
+      end: new Date('2023-05-28T13:00:00'),
+    },
+  ];
+
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +58,7 @@ function Main() {
           setSelectedStartDate={setSelectedStartDate}
           setSelectedEndDate={setSelectedEndDate}
           setIsModalOpen={setIsModalOpen}
-          allEvents={scheduleEvents}
+          allEvents={events}
         />
         <Modal
           title="Создать пользователя"

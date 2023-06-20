@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/ru';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import './Calendar.css';
 import { EventPopover } from '../Event/EventPopover';
 
 function CalendarForm({
@@ -35,6 +36,7 @@ function CalendarForm({
             event: 'Событие',
           }}
           components={{ event: EventPopover }}
+          showMultiDayTimes
           selectable
           onSelectSlot={({ start, end }) => {
             setSelectedStartDate(start);

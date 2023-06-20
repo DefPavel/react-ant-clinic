@@ -3,7 +3,7 @@ import { Form, Input, Select, DatePicker, TimePicker } from 'antd';
 
 function EventForm({ event }) {
   const [startDate, setStartDate] = useState(event.start);
-  const [startTime, setStartTime] = useState(event.time);
+  const [startTime, setStartTime] = useState(event.end);
   const [title, setTitle] = useState(event.title);
   const [doctor, setDoctor] = useState(event.doctor);
   const [phone, setPhone] = useState(event.phone);
@@ -27,10 +27,10 @@ function EventForm({ event }) {
         <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
       </Form.Item>
       <Form.Item label="Дата">
-        <Input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+        <Input value={startDate} onChange={(e) => setStartDate(e.target.value)} />
       </Form.Item>
       <Form.Item label="Время">
-        <Input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+        <Input value={startTime} onChange={(e) => setStartTime(e.target.value)} />
       </Form.Item>
       <Form.Item label="Описание">
         <Input.TextArea value={description} onChange={(e) => setDescription(e.target.value)} />
