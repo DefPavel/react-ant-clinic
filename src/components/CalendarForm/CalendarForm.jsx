@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -6,12 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './Calendar.css';
 import { EventPopover } from '../Event/EventPopover';
 
-function CalendarForm({
-  allEvents,
-  setSelectedStartDate = (f) => f,
-  setSelectedEndDate = (f) => f,
-  setIsModalOpen = (f) => f,
-}) {
+function CalendarForm({ allEvents, setSelectedStartDate = (f) => f, setIsModalOpen = (f) => f }) {
   const localizer = momentLocalizer(moment);
   return (
     <div className="calendar">
@@ -38,9 +33,8 @@ function CalendarForm({
           components={{ event: EventPopover }}
           showMultiDayTimes
           selectable
-          onSelectSlot={({ start, end }) => {
+          onSelectSlot={({ start }) => {
             setSelectedStartDate(start);
-            setSelectedEndDate(end);
             setIsModalOpen(true);
           }}
         />

@@ -17,37 +17,39 @@ function Main() {
   // почему-то как только приходит с api на недели и дне fatal error date[("get" + method)] is not a function
   // https://github.com/jquense/react-big-calendar/issues/163
 
-  const events = [
-    {
-      title: 'Врач1 - Петренко Н.В. \n пациент',
-      start: new Date('2023-05-28T10:00:00'),
-      end: new Date('2023-05-28T13:00:00'),
-    },
-    {
-      title: 'Врач2 - Петренко Н.В. \n пациент',
-      start: new Date('2023-05-28T10:00:00'),
-      end: new Date('2023-05-28T13:00:00'),
-    },
-    {
-      title: 'Врач3 - Петренко Н.В. \n пациент',
-      start: new Date('2023-05-28T10:00:00'),
-      end: new Date('2023-05-28T13:00:00'),
-    },
-    {
-      title: 'Врач4 - Петренко Н.В. \n пациент',
-      start: new Date('2023-05-28T10:00:00'),
-      end: new Date('2023-05-28T13:00:00'),
-    },
-  ];
-
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
-  const [selectedEndDate, setSelectedEndDate] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState(new Date());
+  const [title, setTitle] = useState('');
+  const [doctor, setDoctor] = useState('');
+  const [phone, setPhone] = useState('');
+  const [description, setDescription] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const handleOk = () => {
+  const handleOk = async () => {
+    const dateBegin = selectedStartDate
+      ? selectedStartDate.toISOString().slice(0, 10)
+      : new Date().toISOString().slice(0, 10);
+
+    const timeBegin = selectedTime
+      ? selectedTime.toLocaleTimeString('ru-RU', {
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      : new Date().toLocaleTimeString('ru-RU', {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('begin', dateBegin);
+    formData.append('time', timeBegin);
+    formData.append('phone', phone);
+    await dispatch(addShedule({ formData }));
+    await dispatch(getAllShedule());
     setIsModalOpen(false);
   };
 
@@ -56,9 +58,8 @@ function Main() {
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
         <CalendarForm
           setSelectedStartDate={setSelectedStartDate}
-          setSelectedEndDate={setSelectedEndDate}
           setIsModalOpen={setIsModalOpen}
-          allEvents={events}
+          allEvents={scheduleEvents}
         />
         <Modal
           title="Создать пользователя"
@@ -76,13 +77,22 @@ function Main() {
         >
           <EventForm
             event={{
-              start: selectedStartDate,
-              end: selectedEndDate,
-              title: '',
+              start: new Date().toISOString().slice(0, 16).replace('T', ' '),
+              end: new Date().toISOString().slice(0, 16).replace('T', ' '),
+              time: new Date().toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+              }),
+              title,
               doctor: '',
-              phone: '',
-              description: '',
+              phone,
+              description,
             }}
+            setDescription={setDescription}
+            setPhone={setPhone}
+            setStartDate={setSelectedStartDate}
+            setStartTime={setSelectedTime}
+            setTitle={setTitle}
           />
         </Modal>
       </div>
