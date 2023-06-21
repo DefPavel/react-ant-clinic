@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Select } from 'antd';
 
-function EventForm({
-  event,
-  setStartDate = (f) => f,
-  setStartTime = (f) => f,
-  setTitle = (f) => f,
-  setPhone = (f) => f,
-  setDescription = (f) => f,
-}) {
+function EventForm() {
   /* // <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> <TimePicker selected={startTime} onChange={(date) => setStartTime(date)} /> */
+  const [formValues, setFormValues] = useState({
+    title: '',
+    phone: '',
+    date: '',
+    time: '',
+    description: '',
+  });
+
+  const handleChangeFormValue = (field, val) => {
+    setFormValues({ ...formValues, [field]: val });
+  };
+
   return (
     <Form layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
       <Form.Item label="Пациент">
-        <Input value={event.title} onChange={(e) => setTitle(e.target.value)} />
+        <Input onChange={(e) => handleChangeFormValue('title', e.target.value)} />
       </Form.Item>
       <Form.Item label="Доктор">
         <Select
@@ -24,19 +29,16 @@ function EventForm({
         />
       </Form.Item>
       <Form.Item label="Телефон Пациента">
-        <Input value={event.phone} onChange={(e) => setPhone(e.target.value)} />
+        <Input onChange={(e) => handleChangeFormValue('phone', e.target.value)} />
       </Form.Item>
       <Form.Item label="Дата">
-        <Input type="date" value={event.start} onChange={(e) => setStartDate(e.target.value)} />
+        <Input type="date" onChange={(e) => handleChangeFormValue('date', e.target.value)} />
       </Form.Item>
       <Form.Item label="Время">
-        <Input type="time" value={event.time} onChange={(e) => setStartTime(e.target.value)} />
+        <Input type="time" onChange={(e) => handleChangeFormValue('time', e.target.value)} />
       </Form.Item>
       <Form.Item label="Описание">
-        <Input.TextArea
-          value={event.description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <Input.TextArea onChange={(e) => handleChangeFormValue('description', e.target.value)} />
       </Form.Item>
     </Form>
   );

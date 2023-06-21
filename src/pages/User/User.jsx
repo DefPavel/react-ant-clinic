@@ -1,41 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table, Tag, Space, Row, Button, Modal } from 'antd';
+import { Table, Tag, Space, Row, Button } from 'antd';
 import { BaseLayout } from '../../components/BaseLayout';
 import { getAllUsers, AddUser, DeleteUser } from '../../store/actions/users.action';
 import { UserForm } from '../../components/UserForm';
 
 function User() {
   const dispatch = useDispatch();
-
-  const [username, handleUsernameChange] = useState('');
-  const [password, handlePasswordChange] = useState('');
-  const [fullname, handleFullNameChange] = useState('');
-  const [phone, handlePhoneChange] = useState('');
-  const [idRole, handleSelectedChange] = useState('');
-
   const usersData = useSelector((store) => store.userReducer?.users);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = async () => {
+
+  const handleOk = async (form) => {
     const formData = new FormData();
-    formData.append('fullname', fullname);
-    formData.append('username', username);
-    formData.append('password', password);
-    formData.append('phone', phone);
-    formData.append('role', idRole);
+    formData.append('fullname', form.fullname);
+    formData.append('username', form.username);
+    formData.append('password', form.password);
+    formData.append('phone', form.phone);
+    formData.append('role', form.role);
     await dispatch(AddUser({ formData }));
     await dispatch(getAllUsers());
     setIsModalOpen(false);
-
-    handleUsernameChange('');
-    handlePasswordChange('');
-    handleFullNameChange('');
-    handlePhoneChange('');
-    handleSelectedChange('');
   };
 
   const handleCancel = () => {
@@ -105,28 +93,7 @@ function User() {
         </Row>
 
         <Table dataSource={usersData} columns={columns} />
-        <Modal
-          title="Создать пользователя"
-          open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          footer={[
-            <Button key="back" onClick={handleCancel}>
-              Закрыть
-            </Button>,
-            <Button key="submit" type="primary" onClick={handleOk}>
-              Сохранить
-            </Button>,
-          ]}
-        >
-          <UserForm
-            handleFullNameChange={handleFullNameChange}
-            handlePasswordChange={handlePasswordChange}
-            handlePhoneChange={handlePhoneChange}
-            handleUsernameChange={handleUsernameChange}
-            handleSelectedChange={handleSelectedChange}
-          />
-        </Modal>
+        <UserForm isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk} />
       </div>
     </BaseLayout>
   );
