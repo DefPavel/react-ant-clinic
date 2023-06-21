@@ -9,6 +9,7 @@ function NotFound() {
       subTitle="Страница не найдена."
       extra={
         <Button
+          style={{ backgroundColor: '#0f7986' }}
           type="primary"
           onClick={() => {
             window.history.back(-1);
