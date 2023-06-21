@@ -2,33 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Tag, Space, Row, Button } from 'antd';
 import { BaseLayout } from '../../components/BaseLayout';
-import { getAllUsers, AddUser, DeleteUser } from '../../store/actions/users.action';
+import { getAllUsers, DeleteUser } from '../../store/actions/users.action';
 import { UserForm } from '../../components/UserForm';
 
 function User() {
   const dispatch = useDispatch();
   const usersData = useSelector((store) => store.userReducer?.users);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = async (form) => {
-    const formData = new FormData();
-    formData.append('fullname', form.fullname);
-    formData.append('username', form.username);
-    formData.append('password', form.password);
-    formData.append('phone', form.phone);
-    formData.append('role', form.role);
-    await dispatch(AddUser({ formData }));
-    await dispatch(getAllUsers());
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     // выдать всех пользователей
@@ -66,8 +46,8 @@ function User() {
     },
     {
       title: 'Действия',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'key',
+      key: 'key',
       render: (id) => (
         <Space size="middle">
           <Button
@@ -87,13 +67,17 @@ function User() {
     <BaseLayout titleName="Пользователи">
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
         <Row style={{ marginBottom: '1rem', justifyContent: 'end' }}>
-          <Button style={{ backgroundColor: '#0f7986' }} type="primary" onClick={showModal}>
+          <Button
+            style={{ backgroundColor: '#0f7986' }}
+            type="primary"
+            onClick={() => setIsModalOpen(true)}
+          >
             Создать
           </Button>
         </Row>
 
         <Table dataSource={usersData} columns={columns} />
-        <UserForm isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk} />
+        <UserForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </BaseLayout>
   );

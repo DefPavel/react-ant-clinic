@@ -1,42 +1,37 @@
 import React from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import 'moment/locale/ru';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import Fullcalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import './Calendar.css';
-import { EventPopover } from '../Event/EventPopover';
 
-function CalendarForm({ allEvents, setSelectedStartDate = (f) => f, setIsModalOpen = (f) => f }) {
-  const localizer = momentLocalizer(moment);
+function CalendarForm({ allEvents }) {
   return (
     <div className="calendar">
       <div>
-        <Calendar
-          style={{ height: '500px' }}
-          events={allEvents}
-          localizer={localizer}
-          startAccessor="start"
-          endAccessor="end"
-          defaultView="week"
-          messages={{
-            next: 'След.',
-            previous: 'Пред.',
-            today: 'Текущая',
-            month: 'Месяц',
-            week: 'Неделя',
-            day: 'День',
-            agenda: 'Таблица',
-            date: 'Дата',
-            time: 'Время',
-            event: 'Событие',
-          }}
-          components={{ event: EventPopover }}
-          showMultiDayTimes
+        <Fullcalendar
+          timeZone="UTC"
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+          initialView="dayGridMonth"
+          buttonIcons
+          navLinks
+          dayMaxEvents
           selectable
-          onSelectSlot={({ start }) => {
-            setSelectedStartDate(start);
-            setIsModalOpen(true);
+          eventClick={(info) => alert(info.event.startStr)}
+          events={allEvents}
+          headerToolbar={{
+            start: 'today,dayGridMonth,listWeek',
+            center: 'title',
+            end: 'prevYear,prev,next,nextYear',
           }}
+          buttonText={{
+            today: 'Сегодня',
+            month: 'Месяц',
+            list: 'Список',
+          }}
+          height="500px"
+          locale="ru"
         />
       </div>
     </div>

@@ -50,8 +50,8 @@ function LoginForm({
           <Form.Item>
             <Button
               size="large"
-              style={{ backgroundColor: '#0f7986' }}
               type="primary"
+              style={{ backgroundColor: '#0f7986' }}
               htmlType="submit"
               onClick={handleSubmit}
               loading={loading}

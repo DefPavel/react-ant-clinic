@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'antd';
-import { BaseLayout } from '../../components/BaseLayout';
-import { CalendarForm } from '../../components/CalendarForm';
-import { EventForm } from '../../components/Event/EventForm';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
+import { EventForm } from '../../components/Event/EventForm';
+import { BaseLayout } from '../../components/BaseLayout';
+import { CalendarForm } from '../../components/CalendarForm/CalendarForm';
 
 function Main() {
   const dispatch = useDispatch();
@@ -13,9 +13,6 @@ function Main() {
     // выдать всех пользователей
     dispatch(getAllShedule());
   }, []);
-  const [selectedStartDate, setSelectedStartDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState(new Date());
-  const [doctor, setDoctor] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCancel = () => {
@@ -37,15 +34,9 @@ function Main() {
   return (
     <BaseLayout titleName="Расписание">
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
-        <CalendarForm
-          setSelectedStartDate={setSelectedStartDate}
-          setIsModalOpen={setIsModalOpen}
-          allEvents={scheduleEvents}
-        />
+        <CalendarForm allEvents={scheduleEvents} />
         <Modal
-          title="Создать пользователя"
-          onOk={handleOk}
-          onCancel={handleCancel}
+          title="Создать Событие"
           footer={[
             <Button key="back" onClick={handleCancel}>
               Закрыть

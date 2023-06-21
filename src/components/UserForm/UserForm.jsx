@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Input, Select, Button, Modal } from 'antd';
+import { useDispatch } from 'react-redux';
+import { getAllUsers, AddUser } from '../../store/actions/users.action';
 
-function UserForm({ isModalOpen = false, handleOk = (f) => f, handleCancel = (f) => f }) {
+function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
     fullname: '',
     username: '',
@@ -14,23 +17,38 @@ function UserForm({ isModalOpen = false, handleOk = (f) => f, handleCancel = (f)
     setFormValues({ ...formValues, [field]: val });
   };
 
+  const sumbitForm = async () => {
+    const formData = new FormData();
+    formData.append('fullname', formValues.fullname);
+    formData.append('username', formValues.username);
+    formData.append('password', formValues.password);
+    formData.append('phone', formValues.phone);
+    formData.append('role', formValues.role);
+    await dispatch(AddUser({ formData }));
+    await dispatch(getAllUsers());
+    setIsModalOpen(false);
+  };
+
   return (
     <Modal
       title="Создать пользователя"
       open={isModalOpen}
-      onOk={handleOk()}
-      onCancel={handleCancel}
       footer={[
-        <Button key="back" onClick={handleCancel}>
+        <Button key="back" type="primary" danger onClick={() => setIsModalOpen(false)}>
           Закрыть
         </Button>,
-        <Button key="submit" type="primary" onClick={handleOk}>
+        <Button
+          style={{ backgroundColor: '#0f7986' }}
+          key="submit"
+          type="primary"
+          onClick={sumbitForm}
+        >
           Сохранить
         </Button>,
       ]}
     >
       <Form layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
-        <Form.Item label="ФИО">
+        <Form.Item label="Ф.И.О.">
           <Input onChange={(e) => handleChangeFormValue('fullname', e.target.value)} />
         </Form.Item>
         <Form.Item label="Логин">
