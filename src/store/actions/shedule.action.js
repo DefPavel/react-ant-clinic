@@ -21,6 +21,23 @@ export const getAllShedule = createAsyncThunk('schedule/get', async (thunkApi) =
   }
 });
 
+export const GetDoctors = createAsyncThunk('schedule/getDoctors', async (thunkApi) => {
+  try {
+    const cookies = new Cookies();
+    const response = await axios({
+      method: 'get',
+      url: `${host}/api/users/doctors`,
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': cookies.get('auth-token'),
+      },
+    });
+    return response.data;
+  } catch (e) {
+    return thunkApi.rejectWithValue(e?.response?.data?.error || 'Произошла непредвиденная ошибка');
+  }
+});
+
 export const addShedule = createAsyncThunk('schedule/insert', async ({ formData }, thunkApi) => {
   try {
     const cookies = new Cookies();

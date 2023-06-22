@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllShedule } from '../actions/shedule.action';
+import { getAllShedule, GetDoctors } from '../actions/shedule.action';
 import { defaultFulfilledReducer, pendingReducer, rejectedReducer } from './base.reducer';
 
 const initialState = {
   schedule: [],
+  doctors: [],
   isLoading: false,
   error: '',
 };
@@ -18,6 +19,12 @@ export const scheduleReducer = createSlice({
     },
     [getAllShedule.pending]: pendingReducer,
     [getAllShedule.rejected]: rejectedReducer,
+    [GetDoctors.fulfilled]: (state, action) => {
+      state.doctors = action.payload || [];
+      defaultFulfilledReducer(state);
+    },
+    [GetDoctors.pending]: pendingReducer,
+    [GetDoctors.rejected]: rejectedReducer,
   },
 });
 

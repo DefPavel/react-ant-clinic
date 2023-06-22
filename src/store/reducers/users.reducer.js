@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllUsers, DeleteUser } from '../actions/users.action';
+import { getAllUsers, DeleteUser, GetDoctors } from '../actions/users.action';
 import { defaultFulfilledReducer, pendingReducer, rejectedReducer } from './base.reducer';
 
 const initialState = {

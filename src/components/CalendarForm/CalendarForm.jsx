@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './Calendar.css';
 
-function CalendarForm({ allEvents }) {
+function CalendarForm({ allEvents = [], setIsModalOpen = (f) => f }) {
   return (
     <div className="calendar">
       <div>
@@ -18,12 +18,19 @@ function CalendarForm({ allEvents }) {
           navLinks
           dayMaxEvents
           selectable
-          eventClick={(info) => alert(info.event.startStr)}
+          select={(info) => console.log(info)}
+          eventClick={(info) => console.log(info)}
           events={allEvents}
           headerToolbar={{
             start: 'today,dayGridMonth,listWeek',
             center: 'title',
-            end: 'prevYear,prev,next,nextYear',
+            end: 'new prevYear,prev,next,nextYear',
+          }}
+          customButtons={{
+            new: {
+              text: 'Запись',
+              click: () => setIsModalOpen(true),
+            },
           }}
           buttonText={{
             today: 'Сегодня',
