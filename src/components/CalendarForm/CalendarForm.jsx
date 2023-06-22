@@ -18,8 +18,8 @@ function CalendarForm({ allEvents = [], setIsModalOpen = (f) => f }) {
           navLinks
           dayMaxEvents
           selectable
-          select={(info) => console.log(info)}
-          eventClick={(info) => console.log(info)}
+          select={(info) => alert(info.startStr)}
+          eventClick={(info) => alert(info.event.extendedProps.doctor)}
           events={allEvents}
           headerToolbar={{
             start: 'today,dayGridMonth,listWeek',

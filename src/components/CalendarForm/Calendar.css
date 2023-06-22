@@ -5,12 +5,6 @@
 .fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
   background-color: #0a4e57;
 }
-.calendar {
-    border: 2px solid #f6f7fa;
-    border-radius: 6px;
-    padding: 10px;
-    background-color: #ffffff;
-  }
   
   .calendar .rbc-off-range-bg {
     background-color: #f1f1f1;
