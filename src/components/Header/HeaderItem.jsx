@@ -7,10 +7,11 @@ import {
 } from '@ant-design/icons';
 import Cookies from 'universal-cookie/es6';
 import { Layout, Button, Space } from 'antd';
+import Logo from './medical-logo.svg';
 
 const { Header } = Layout;
 
-function HeaderItem({ collapsed = false, setCollapsed = (f) => f }) {
+function HeaderItem({ collapsed = true, setCollapsed = (f) => f }) {
   const exit = async () => {
     const cookies = new Cookies();
     await cookies.remove('user', { path: '/' });
@@ -31,16 +32,24 @@ function HeaderItem({ collapsed = false, setCollapsed = (f) => f }) {
         backgroundColor: '#ffffff',
       }}
     >
-      <Button
-        type="text"
-        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        onClick={() => setCollapsed(!collapsed)}
-        style={{
-          fontSize: '20px',
-          width: 63,
-          height: 63,
-        }}
-      />
+      <Space>
+        <img
+          src={Logo}
+          alt="logo"
+          style={{ display: 'flex', height: '25px', marginRight: '6px' }}
+        />
+        <p>Медицинская клиника</p>
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            fontSize: '20px',
+            width: 63,
+            height: 63,
+          }}
+        />
+      </Space>
 
       <Space>
         <Button

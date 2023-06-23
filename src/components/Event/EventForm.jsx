@@ -39,10 +39,15 @@ function EventForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) => 
       title="Создать Событие"
       onCancel={handleCancel}
       footer={[
-        <Button key="back" onClick={handleCancel}>
+        <Button key="back" danger onClick={handleCancel}>
           Закрыть
         </Button>,
-        <Button key="submit" type="primary" onClick={handleOk}>
+        <Button
+          key="submit"
+          style={{ backgroundColor: '#0f7986' }}
+          type="primary"
+          onClick={handleOk}
+        >
           Сохранить
         </Button>,
       ]}

@@ -34,7 +34,7 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       title="Создать пользователя"
       open={isModalOpen}
       footer={[
-        <Button key="back" type="primary" danger onClick={() => setIsModalOpen(false)}>
+        <Button key="back" danger onClick={() => setIsModalOpen(false)}>
           Закрыть
         </Button>,
         <Button

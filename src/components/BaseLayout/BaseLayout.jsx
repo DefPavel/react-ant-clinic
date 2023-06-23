@@ -6,7 +6,7 @@ import { SideBarItem } from '../SideBar/SideBarItem';
 const { Content } = Layout;
 
 function BaseLayout({ children, titleName }) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <HeaderItem collapsed={collapsed} setCollapsed={setCollapsed} />

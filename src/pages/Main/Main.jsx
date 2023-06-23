@@ -23,6 +23,9 @@ function Main() {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           allEvents={scheduleEvents}
+          callbackOnselect={(val1, val2) => {
+            console.log(val1, val2);
+          }}
         />
         <EventForm doctors={doctors} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>

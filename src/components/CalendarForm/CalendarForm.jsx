@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './Calendar.css';
 
-function CalendarForm({ allEvents = [], setIsModalOpen = (f) => f }) {
+function CalendarForm({ allEvents = [], setIsModalOpen = (f) => f, callbackOnselect = (f) => f }) {
   return (
     <div className="calendar">
       <div>
@@ -18,7 +18,7 @@ function CalendarForm({ allEvents = [], setIsModalOpen = (f) => f }) {
           navLinks
           dayMaxEvents
           selectable
-          select={(info) => alert(info.startStr)}
+          select={({ startStr, endStr }) => callbackOnselect(startStr, endStr)}
           eventClick={(info) => alert(info.event.extendedProps.doctor)}
           events={allEvents}
           headerToolbar={{
