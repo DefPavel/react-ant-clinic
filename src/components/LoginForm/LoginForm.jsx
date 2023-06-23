@@ -30,6 +30,7 @@ function LoginForm({
         </Row>
         <Row className="body">
           <Form.Item
+            required
             label="Логин"
             name="username"
             onChange={(e) => handleUsernameChange(e.target.value)}
@@ -39,6 +40,7 @@ function LoginForm({
           </Form.Item>
 
           <Form.Item
+            required
             label="Пароль"
             name="password"
             onChange={(e) => handlePasswordChange(e.target.value)}

@@ -18,15 +18,17 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
   };
 
   const sumbitForm = async () => {
-    const formData = new FormData();
-    formData.append('fullname', formValues.fullname);
-    formData.append('username', formValues.username);
-    formData.append('password', formValues.password);
-    formData.append('phone', formValues.phone);
-    formData.append('role', formValues.role);
-    await dispatch(AddUser({ formData }));
-    await dispatch(getAllUsers());
-    setIsModalOpen(false);
+    if (formValues.fullname && formValues.username && formValues.password) {
+      const formData = new FormData();
+      formData.append('fullname', formValues.fullname);
+      formData.append('username', formValues.username);
+      formData.append('password', formValues.password);
+      formData.append('phone', formValues.phone);
+      formData.append('role', formValues.role);
+      await dispatch(AddUser({ formData }));
+      await dispatch(getAllUsers());
+      setIsModalOpen(false);
+    }
   };
 
   return (
@@ -48,20 +50,33 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       ]}
     >
       <Form layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
-        <Form.Item label="Ф.И.О.">
-          <Input onChange={(e) => handleChangeFormValue('fullname', e.target.value)} />
+        <Form.Item
+          required
+          rules={[{ required: true, message: 'Пожалуйста, введите ФИО!' }]}
+          label="Ф.И.О."
+        >
+          <Input required onChange={(e) => handleChangeFormValue('fullname', e.target.value)} />
         </Form.Item>
-        <Form.Item label="Логин">
-          <Input onChange={(e) => handleChangeFormValue('username', e.target.value)} />
+        <Form.Item
+          required
+          rules={[{ required: true, message: 'Пожалуйста, введите логин!' }]}
+          label="Логин"
+        >
+          <Input required onChange={(e) => handleChangeFormValue('username', e.target.value)} />
         </Form.Item>
-        <Form.Item label="Пароль">
-          <Input onChange={(e) => handleChangeFormValue('password', e.target.value)} />
+        <Form.Item
+          required
+          rules={[{ required: true, message: 'Пожалуйста, введите пароль!' }]}
+          label="Пароль"
+        >
+          <Input required onChange={(e) => handleChangeFormValue('password', e.target.value)} />
         </Form.Item>
         <Form.Item label="Телефон">
           <Input onChange={(e) => handleChangeFormValue('phone', e.target.value)} />
         </Form.Item>
-        <Form.Item label="Роль">
+        <Form.Item required label="Роль">
           <Select
+            required
             onChange={(e) => handleChangeFormValue('role', e)}
             options={[
               { value: '1', label: 'Администратор' },
