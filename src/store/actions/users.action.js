@@ -35,6 +35,7 @@ export const AddUser = createAsyncThunk('users/insert', async ({ formData }, thu
     });
     return response.data;
   } catch (e) {
+    console.log(e?.response?.data.error);
     return thunkApi.rejectWithValue(e?.response?.data?.error || 'Произошла непредвиденная ошибка');
   }
 });

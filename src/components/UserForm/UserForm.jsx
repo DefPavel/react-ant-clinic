@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Button, Modal } from 'antd';
-import { useDispatch } from 'react-redux';
+import { Form, Input, Select, Button, Modal, Alert } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers, AddUser } from '../../store/actions/users.action';
 
 function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
   const dispatch = useDispatch();
+  const { error } = useSelector((store) => store.userReducer);
   const [formValues, setFormValues] = useState({
     fullname: '',
     username: '',
@@ -13,10 +14,22 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
     role: '',
   });
 
+  const errorAlert = error ? (
+    <div>
+      <Alert message={error} type="error" showIcon closable />
+    </div>
+  ) : (
+    ''
+  );
+
   const handleChangeFormValue = (field, val) => {
     setFormValues({ ...formValues, [field]: val });
   };
 
+  const closeForm = () => {
+    setFormValues({});
+    setIsModalOpen(false);
+  };
   const sumbitForm = async () => {
     if (formValues.fullname && formValues.username && formValues.password) {
       const formData = new FormData();
@@ -26,30 +39,14 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       formData.append('phone', formValues.phone);
       formData.append('role', formValues.role);
       await dispatch(AddUser({ formData }));
-      await dispatch(getAllUsers());
-      setIsModalOpen(false);
+      if (error !== '') await dispatch(getAllUsers());
+      // setIsModalOpen(false);
     }
   };
 
   return (
-    <Modal
-      title="Создать пользователя"
-      open={isModalOpen}
-      footer={[
-        <Button key="back" danger onClick={() => setIsModalOpen(false)}>
-          Закрыть
-        </Button>,
-        <Button
-          style={{ backgroundColor: '#0f7986' }}
-          key="submit"
-          type="primary"
-          onClick={sumbitForm}
-        >
-          Сохранить
-        </Button>,
-      ]}
-    >
-      <Form layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
+    <Modal title="Создать пользователя" open={isModalOpen} footer={null} onCancel={closeForm}>
+      <Form onFinish={sumbitForm} layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
         <Form.Item
           required
           rules={[{ required: true, message: 'Пожалуйста, введите ФИО!' }]}
@@ -65,7 +62,6 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
           <Input required onChange={(e) => handleChangeFormValue('username', e.target.value)} />
         </Form.Item>
         <Form.Item
-          required
           rules={[{ required: true, message: 'Пожалуйста, введите пароль!' }]}
           label="Пароль"
         >
@@ -74,7 +70,7 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
         <Form.Item label="Телефон">
           <Input onChange={(e) => handleChangeFormValue('phone', e.target.value)} />
         </Form.Item>
-        <Form.Item required label="Роль">
+        <Form.Item rules={[{ required: true, message: 'Необходимо выбрать роль!' }]} label="Роль">
           <Select
             required
             onChange={(e) => handleChangeFormValue('role', e)}
@@ -84,6 +80,22 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
             ]}
           />
         </Form.Item>
+        <Form.Item>
+          <div className="ant-modal-footer">
+            <Button key="back" danger onClick={closeForm}>
+              Закрыть
+            </Button>
+            <Button
+              style={{ backgroundColor: '#0f7986' }}
+              key="submit"
+              type="primary"
+              htmlType="sumbit"
+            >
+              Сохранить
+            </Button>
+          </div>
+        </Form.Item>
+        {errorAlert}
       </Form>
     </Modal>
   );

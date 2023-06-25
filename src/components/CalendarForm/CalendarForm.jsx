@@ -6,7 +6,12 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './Calendar.css';
 
-function CalendarForm({ allEvents = [], setIsModalOpen = (f) => f, callbackOnselect = (f) => f }) {
+function CalendarForm({
+  allEvents = [],
+  setIsModalAddOpen = (f) => f,
+  callbackOnselect = (f) => f,
+  callbackEventselect = (f) => f,
+}) {
   return (
     <div className="calendar">
       <div>
@@ -18,8 +23,8 @@ function CalendarForm({ allEvents = [], setIsModalOpen = (f) => f, callbackOnsel
           navLinks
           dayMaxEvents
           selectable
-          select={({ startStr, endStr }) => callbackOnselect(startStr, endStr)}
-          eventClick={(info) => alert(info.event.extendedProps.doctor)}
+          select={({ startStr }) => callbackOnselect(startStr)}
+          eventClick={(info) => callbackEventselect(info.event.extendedProps)}
           events={allEvents}
           headerToolbar={{
             start: 'today,dayGridMonth,listWeek',
@@ -29,7 +34,7 @@ function CalendarForm({ allEvents = [], setIsModalOpen = (f) => f, callbackOnsel
           customButtons={{
             new: {
               text: 'Запись',
-              click: () => setIsModalOpen(true),
+              click: () => setIsModalAddOpen(true),
             },
           }}
           buttonText={{

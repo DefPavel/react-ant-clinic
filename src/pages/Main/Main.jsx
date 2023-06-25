@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
 import { BaseLayout } from '../../components/BaseLayout';
 import { CalendarForm } from '../../components/CalendarForm/CalendarForm';
-import { EventForm } from '../../components/Event/EventForm';
+import { EventAddForm } from '../../components/Event/EventAdd';
+import { EventUpdateForm } from '../../components/Event/EventUpdate';
 
 function Main() {
   const dispatch = useDispatch();
@@ -14,20 +15,40 @@ function Main() {
     dispatch(getAllShedule());
     dispatch(GetDoctors());
   }, []);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalAddOpen] = useState(false);
+  const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+  // const [selectDateStr, setSelectDate] = useState('');
 
   return (
     <BaseLayout titleName="Расписание">
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
         <CalendarForm
           isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
+          setIsModalAddOpen={setIsModalAddOpen}
           allEvents={scheduleEvents}
-          callbackOnselect={(val1, val2) => {
-            console.log(val1, val2);
+          callbackOnselect={(dateSelect) => {
+            console.log(dateSelect);
+            // setSelectDate(dateSelect);
+            // console.log(selectDateStr);
+            // setIsModalAddOpen(true);
+          }}
+          callbackEventselect={(objectValue) => {
+            console.log(objectValue);
+            // setIsModalUpdateOpen(true);
           }}
         />
-        <EventForm doctors={doctors} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        {/* Открыть модальное окно для создания события */}
+        <EventAddForm
+          doctors={doctors}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalAddOpen}
+        />
+        {/* Открыть модальное окно для изменения уже существующего события */}
+        <EventUpdateForm
+          doctors={doctors}
+          isModalOpen={isModalUpdateOpen}
+          setIsModalOpen={setIsModalUpdateOpen}
+        />
       </div>
     </BaseLayout>
   );

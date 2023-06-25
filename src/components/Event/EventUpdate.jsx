@@ -3,7 +3,7 @@ import { Form, Input, Select, Modal, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
-function EventForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) => f }) {
+function EventUpdateForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) => f }) {
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
     doctor: '',
@@ -38,7 +38,7 @@ function EventForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) => 
 
   return (
     <Modal
-      title="Создать Событие"
+      title="Изменить Событие"
       onCancel={handleCancel}
       footer={[
         <Button key="back" danger onClick={handleCancel}>
@@ -103,4 +103,4 @@ function EventForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) => 
   );
 }
 
-export { EventForm };
+export { EventUpdateForm };

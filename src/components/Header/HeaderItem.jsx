@@ -36,7 +36,7 @@ function HeaderItem({ collapsed = true, setCollapsed = (f) => f }) {
         <img
           src={Logo}
           alt="logo"
-          style={{ display: 'flex', height: '25px', marginRight: '6px' }}
+          style={{ display: 'flex', height: '29px', marginRight: '6px', marginLeft: '20px' }}
         />
         <p>Медицинская клиника</p>
         <Button
