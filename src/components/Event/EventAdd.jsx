@@ -37,25 +37,8 @@ function EventAddForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) 
   };
 
   return (
-    <Modal
-      title="Создать Событие"
-      onCancel={handleCancel}
-      footer={[
-        <Button key="back" danger onClick={handleCancel}>
-          Закрыть
-        </Button>,
-        <Button
-          key="submit"
-          style={{ backgroundColor: '#0f7986' }}
-          type="primary"
-          onClick={handleOk}
-        >
-          Сохранить
-        </Button>,
-      ]}
-      open={isModalOpen}
-    >
-      <Form layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
+    <Modal title="Создать Событие" onCancel={handleCancel} footer={null} open={isModalOpen}>
+      <Form onFinish={handleOk} layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
         <Form.Item
           rules={[{ required: true, message: 'Пожалуйста, введите ФИО!' }]}
           label="Пациент"
@@ -97,6 +80,21 @@ function EventAddForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) 
         </Form.Item>
         <Form.Item label="Описание">
           <Input.TextArea onChange={(e) => handleChangeFormValue('description', e.target.value)} />
+        </Form.Item>
+        <Form.Item>
+          <div className="ant-modal-footer">
+            <Button key="back" danger onClick={handleCancel}>
+              Закрыть
+            </Button>
+            <Button
+              style={{ backgroundColor: '#0f7986' }}
+              key="submit"
+              type="primary"
+              htmlType="sumbit"
+            >
+              Создать
+            </Button>
+          </div>
         </Form.Item>
       </Form>
     </Modal>
