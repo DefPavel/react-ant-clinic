@@ -3,13 +3,18 @@ import { Form, Input, Select, Modal, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
-function EventAddForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) => f }) {
+function EventAddForm({
+  selectDateStr,
+  doctors = [],
+  isModalOpen = false,
+  setIsModalOpen = (f) => f,
+}) {
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
     doctor: '',
     title: '',
     phone: '',
-    date: '',
+    date: selectDateStr,
     time: '',
     description: '',
   });
@@ -62,6 +67,7 @@ function EventAddForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) 
             required
             type="date"
             lang="ru"
+            value={selectDateStr}
             onChange={(e) => handleChangeFormValue('date', e.target.value)}
           />
         </Form.Item>

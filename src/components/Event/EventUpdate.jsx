@@ -3,15 +3,20 @@ import { Form, Input, Select, Modal, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
-function EventUpdateForm({ doctors = [], isModalOpen = false, setIsModalOpen = (f) => f }) {
+function EventUpdateForm({
+  objectEvent,
+  doctors = [],
+  isModalOpen = false,
+  setIsModalOpen = (f) => f,
+}) {
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
-    doctor: '',
-    title: '',
-    phone: '',
-    date: '',
-    time: '',
-    description: '',
+    doctor: objectEvent?.doctor,
+    title: objectEvent?.title,
+    phone: objectEvent?.phone,
+    date: objectEvent?.date,
+    time: objectEvent?.time,
+    description: objectEvent?.description,
   });
 
   const handleChangeFormValue = (field, val) => {
@@ -60,7 +65,11 @@ function EventUpdateForm({ doctors = [], isModalOpen = false, setIsModalOpen = (
           rules={[{ required: true, message: 'Пожалуйста, введите ФИО!' }]}
           label="Пациент"
         >
-          <Input required onChange={(e) => handleChangeFormValue('title', e.target.value)} />
+          <Input
+            value={formValues.title}
+            required
+            onChange={(e) => handleChangeFormValue('title', e.target.value)}
+          />
         </Form.Item>
         <Form.Item label="Доктор">
           <Select
@@ -72,10 +81,14 @@ function EventUpdateForm({ doctors = [], isModalOpen = false, setIsModalOpen = (
           />
         </Form.Item>
         <Form.Item label="Телефон Пациента">
-          <Input onChange={(e) => handleChangeFormValue('phone', e.target.value)} />
+          <Input
+            value={formValues.phone}
+            onChange={(e) => handleChangeFormValue('phone', e.target.value)}
+          />
         </Form.Item>
         <Form.Item rules={[{ required: true, message: 'Пожалуйста, введите дату!' }]} label="Дата">
           <Input
+            value={formValues.date}
             required
             type="date"
             lang="ru"
@@ -87,6 +100,7 @@ function EventUpdateForm({ doctors = [], isModalOpen = false, setIsModalOpen = (
           label="Время"
         >
           <Input
+            value={formValues.time}
             required
             type="time"
             lang="ru"
@@ -96,7 +110,10 @@ function EventUpdateForm({ doctors = [], isModalOpen = false, setIsModalOpen = (
           />
         </Form.Item>
         <Form.Item label="Описание">
-          <Input.TextArea onChange={(e) => handleChangeFormValue('description', e.target.value)} />
+          <Input.TextArea
+            value={formValues.description}
+            onChange={(e) => handleChangeFormValue('description', e.target.value)}
+          />
         </Form.Item>
       </Form>
     </Modal>

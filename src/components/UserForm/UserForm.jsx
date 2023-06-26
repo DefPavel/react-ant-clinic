@@ -27,7 +27,13 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
   };
 
   const closeForm = () => {
-    setFormValues({});
+    setFormValues({
+      fullname: '',
+      username: '',
+      password: '',
+      phone: '',
+      role: '',
+    });
     setIsModalOpen(false);
   };
   const sumbitForm = async () => {

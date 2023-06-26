@@ -24,7 +24,12 @@ function CalendarForm({
           dayMaxEvents
           selectable
           select={({ startStr }) => callbackOnselect(startStr)}
-          eventClick={(info) => callbackEventselect(info.event.extendedProps)}
+          eventClick={(info) => {
+            callbackEventselect({
+              date: info.event.startStr.split('T')[0],
+              ...info.event.extendedProps,
+            });
+          }}
           events={allEvents}
           headerToolbar={{
             start: 'today,dayGridMonth,listWeek',

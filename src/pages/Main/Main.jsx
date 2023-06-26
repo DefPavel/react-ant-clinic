@@ -17,7 +17,15 @@ function Main() {
   }, []);
   const [isModalOpen, setIsModalAddOpen] = useState(false);
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
-  // const [selectDateStr, setSelectDate] = useState('');
+  const [selectDateStr, setSelectDate] = useState('');
+  const [objectEvent, setobjectEvent] = useState({
+    doctor: '',
+    title: '',
+    phone: '',
+    date: '',
+    time: '',
+    description: '',
+  });
 
   return (
     <BaseLayout titleName="Расписание">
@@ -27,24 +35,31 @@ function Main() {
           setIsModalAddOpen={setIsModalAddOpen}
           allEvents={scheduleEvents}
           callbackOnselect={(dateSelect) => {
-            console.log(dateSelect);
-            // setSelectDate(dateSelect);
-            // console.log(selectDateStr);
-            // setIsModalAddOpen(true);
+            setSelectDate(dateSelect);
+            setIsModalAddOpen(true);
           }}
           callbackEventselect={(objectValue) => {
-            console.log(objectValue);
-            // setIsModalUpdateOpen(true);
+            setobjectEvent({
+              doctor: objectValue.doctor,
+              title: objectValue.title,
+              phone: objectValue.phone,
+              date: objectValue.date,
+              time: objectValue.time,
+              description: objectValue.description,
+            });
+            setIsModalUpdateOpen(true);
           }}
         />
         {/* Открыть модальное окно для создания события */}
         <EventAddForm
+          selectDateStr={selectDateStr}
           doctors={doctors}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalAddOpen}
         />
         {/* Открыть модальное окно для изменения уже существующего события */}
         <EventUpdateForm
+          objectValue={objectEvent}
           doctors={doctors}
           isModalOpen={isModalUpdateOpen}
           setIsModalOpen={setIsModalUpdateOpen}
