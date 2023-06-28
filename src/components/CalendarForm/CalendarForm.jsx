@@ -8,6 +8,7 @@ import './Calendar.css';
 
 function CalendarForm({
   allEvents = [],
+  setSelectDate = (f) => f,
   setIsModalAddOpen = (f) => f,
   callbackOnselect = (f) => f,
   callbackEventselect = (f) => f,
@@ -28,6 +29,7 @@ function CalendarForm({
             callbackEventselect({
               date: info.event.startStr.split('T')[0],
               ...info.event.extendedProps,
+              title: info.event.title,
             });
           }}
           events={allEvents}
@@ -39,7 +41,10 @@ function CalendarForm({
           customButtons={{
             new: {
               text: 'Запись',
-              click: () => setIsModalAddOpen(true),
+              click: () => {
+                setIsModalAddOpen(true);
+                setSelectDate(null);
+              },
             },
           }}
           buttonText={{
