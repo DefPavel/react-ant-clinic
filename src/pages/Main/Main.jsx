@@ -6,6 +6,11 @@ import { CalendarForm } from '../../components/CalendarForm/CalendarForm';
 import { EventAddForm } from '../../components/Event/EventAdd';
 import { EventUpdateForm } from '../../components/Event/EventUpdate';
 
+//! При выборе новой ячейки, подставляются старые данные
+//! При выборе ячейки на календаре не подставляется дата с календаря
+//! Не подставляется имя пациента (objectValue.title)
+//! Изменить способ подстановки доктора при изменении записи
+//! Посмотреть на рендер компонентов
 function Main() {
   const dispatch = useDispatch();
   const scheduleEvents = useSelector((store) => store.scheduleReducer?.schedule);
