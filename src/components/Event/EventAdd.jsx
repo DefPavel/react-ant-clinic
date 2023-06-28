@@ -3,6 +3,7 @@ import { Form, Input, Select, Modal, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
+//! Дата не подставляется
 function EventAddForm({
   selectDateStr,
   doctors = [],
@@ -14,7 +15,7 @@ function EventAddForm({
     doctor: '',
     title: '',
     phone: '',
-    date: selectDateStr,
+    date: '',
     time: '',
     description: '',
   });
@@ -67,7 +68,6 @@ function EventAddForm({
             required
             type="date"
             lang="ru"
-            value={selectDateStr}
             onChange={(e) => handleChangeFormValue('date', e.target.value)}
           />
         </Form.Item>

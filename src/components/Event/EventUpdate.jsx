@@ -1,23 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Modal, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
+//! objectEvent данные не приходят
 function EventUpdateForm({
-  objectEvent,
+  objectValue,
   doctors = [],
   isModalOpen = false,
   setIsModalOpen = (f) => f,
 }) {
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
-    doctor: objectEvent?.doctor,
-    title: objectEvent?.title,
-    phone: objectEvent?.phone,
-    date: objectEvent?.date,
-    time: objectEvent?.time,
-    description: objectEvent?.description,
+    doctor: '',
+    title: '',
+    phone: '',
+    date: '',
+    time: '',
+    description: '',
   });
+
+  useEffect(() => {
+    const doctorElement = doctors.find((el) => el.full_name === objectValue.doctor);
+
+    setFormValues({
+      ...formValues,
+      doctor: {
+        value: doctorElement?.key,
+        label: doctorElement?.full_name,
+      },
+      title: objectValue?.title,
+      phone: objectValue?.phone,
+      date: objectValue?.date,
+      time: objectValue?.time,
+      description: objectValue?.description,
+    });
+  }, [objectValue]);
+
+  const getDoctor = (name) => {
+    if (name) {
+      const { key, full_name: label } = doctors.find((el) => el.full_name === name);
+
+      return { value: key, label };
+    }
+  };
 
   const handleChangeFormValue = (field, val) => {
     setFormValues({ ...formValues, [field]: val });
@@ -73,6 +99,7 @@ function EventUpdateForm({
         </Form.Item>
         <Form.Item label="Доктор">
           <Select
+            defaultValue={getDoctor(objectValue.doctor)}
             onChange={(e) => handleChangeFormValue('doctor', e)}
             options={doctors.map((item) => ({
               value: item.key,
