@@ -3,7 +3,6 @@ import { Form, Input, Select, Modal, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
-//! objectEvent данные не приходят
 function EventUpdateForm({
   objectValue,
   doctors = [],
@@ -21,14 +20,9 @@ function EventUpdateForm({
   });
 
   useEffect(() => {
-    const doctorElement = doctors.find((el) => el.full_name === objectValue.doctor);
-
     setFormValues({
       ...formValues,
-      doctor: {
-        value: doctorElement?.key,
-        label: doctorElement?.full_name,
-      },
+      doctor: objectValue?.doctor,
       title: objectValue?.title,
       phone: objectValue?.phone,
       date: objectValue?.date,
@@ -36,14 +30,6 @@ function EventUpdateForm({
       description: objectValue?.description,
     });
   }, [objectValue]);
-
-  const getDoctor = (name) => {
-    if (name) {
-      const { key, full_name: label } = doctors.find((el) => el.full_name === name);
-
-      return { value: key, label };
-    }
-  };
 
   const handleChangeFormValue = (field, val) => {
     setFormValues({ ...formValues, [field]: val });
@@ -99,7 +85,7 @@ function EventUpdateForm({
         </Form.Item>
         <Form.Item label="Доктор">
           <Select
-            defaultValue={getDoctor(objectValue.doctor)}
+            defaultValue={objectValue.doctor}
             onChange={(e) => handleChangeFormValue('doctor', e)}
             options={doctors.map((item) => ({
               value: item.key,

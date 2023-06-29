@@ -25,7 +25,7 @@ function EventAddForm({
       doctor: '',
       title: '',
       phone: '',
-      date: '',
+      date: selectDateStr || '',
       time: '',
       description: '',
     });
@@ -85,7 +85,7 @@ function EventAddForm({
         <Form.Item rules={[{ required: true, message: 'Пожалуйста, введите дату!' }]} label="Дата">
           <Input
             required
-            value={selectDateStr || ''}
+            value={formValues.date}
             type="date"
             lang="ru"
             onChange={(e) => handleChangeFormValue('date', e.target.value)}

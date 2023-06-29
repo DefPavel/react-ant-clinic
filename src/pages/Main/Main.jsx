@@ -6,7 +6,6 @@ import { CalendarForm } from '../../components/CalendarForm/CalendarForm';
 import { EventAddForm } from '../../components/Event/EventAdd';
 import { EventUpdateForm } from '../../components/Event/EventUpdate';
 
-//! Изменить способ подстановки доктора при изменении записи
 //! Посмотреть на рендер компонентов
 function Main() {
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ function Main() {
           setSelectDate={setSelectDate}
           callbackEventselect={(objectValue) => {
             setobjectEvent({
-              doctor: objectValue.doctor,
+              doctor: { key: objectValue.doctor_id, label: objectValue.doctor },
               title: objectValue.title,
               phone: objectValue.phone,
               date: objectValue.date,
