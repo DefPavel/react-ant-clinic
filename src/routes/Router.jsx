@@ -7,10 +7,27 @@ import {
   SecretRolesMiddleware,
 } from './middlewares/privates.middleware';
 import { Main } from '../pages/Main/Main';
+import { BaseLayout } from '../components/BaseLayout';
 import { User } from '../pages/User';
 import { NotFound } from '../pages/NotFound/NotFound';
 
 function Router() {
+  const MainPage = (
+    <SecretMiddleware>
+      <BaseLayout titleName="Расписание">
+        <Main />
+      </BaseLayout>
+    </SecretMiddleware>
+  );
+
+  const UsersPage = (
+    <SecretRolesMiddleware>
+      <BaseLayout titleName="Пользователи">
+        <User />
+      </BaseLayout>
+    </SecretRolesMiddleware>
+  );
+
   return (
     <BrowserRouter>
       <Routes>
@@ -23,24 +40,8 @@ function Router() {
             </LoginMiddleware>
           }
         />
-        <Route
-          path="/"
-          exact
-          element={
-            <SecretMiddleware>
-              <Main />
-            </SecretMiddleware>
-          }
-        />
-        <Route
-          path="/users"
-          exact
-          element={
-            <SecretRolesMiddleware>
-              <User />
-            </SecretRolesMiddleware>
-          }
-        />
+        <Route path="/" exact element={MainPage} />
+        <Route path="/users" exact element={UsersPage} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
