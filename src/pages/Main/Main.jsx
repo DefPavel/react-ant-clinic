@@ -32,6 +32,18 @@ function Main() {
     setIsModalAddOpen(true);
   }, []);
 
+  const onEventSelect = useCallback((objectValue) => {
+    setobjectEvent({
+      doctor: { key: objectValue.doctor_id, label: objectValue.doctor },
+      title: objectValue.title,
+      phone: objectValue.phone,
+      date: objectValue.date,
+      time: objectValue.time,
+      description: objectValue.description,
+    });
+    setIsModalUpdateOpen(true);
+  });
+
   return (
     <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
       <CalendarForm
@@ -40,17 +52,7 @@ function Main() {
         allEvents={scheduleEvents}
         callbackOnselect={onSelect}
         setSelectDate={setSelectDate}
-        callbackEventselect={(objectValue) => {
-          setobjectEvent({
-            doctor: { key: objectValue.doctor_id, label: objectValue.doctor },
-            title: objectValue.title,
-            phone: objectValue.phone,
-            date: objectValue.date,
-            time: objectValue.time,
-            description: objectValue.description,
-          });
-          setIsModalUpdateOpen(true);
-        }}
+        callbackEventselect={onEventSelect}
       />
       {/* Открыть модальное окно для создания события */}
       <EventAddForm

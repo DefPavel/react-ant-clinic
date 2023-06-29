@@ -33,15 +33,14 @@ function Router() {
       <Routes>
         <Route
           path="/login"
-          exact
           element={
             <LoginMiddleware>
               <Login />
             </LoginMiddleware>
           }
         />
-        <Route path="/" exact element={MainPage} />
-        <Route path="/users" exact element={UsersPage} />
+        <Route path="/" element={MainPage} />
+        <Route path="/users" element={UsersPage} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
