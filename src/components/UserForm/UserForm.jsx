@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Select, Button, Modal, Alert } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers, AddUser } from '../../store/actions/users.action';
