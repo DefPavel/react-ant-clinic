@@ -4,6 +4,7 @@ import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
 import { CalendarForm } from '../../components/CalendarForm/CalendarForm';
 import { EventAddForm } from '../../components/Event/EventAdd';
 import { EventUpdateForm } from '../../components/Event/EventUpdate';
+import Cookies from 'universal-cookie/es6';
 
 //! Посмотреть на рендер компонентов
 function Main() {
@@ -15,6 +16,8 @@ function Main() {
     dispatch(getAllShedule());
     dispatch(GetDoctors());
   }, []);
+  const cookies = new Cookies();
+  const role = cookies.get('role');
   const [isModalOpen, setIsModalAddOpen] = useState(false);
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [selectDateStr, setSelectDate] = useState('');
@@ -62,6 +65,7 @@ function Main() {
         doctors={doctors}
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalAddOpen}
+        role={role}
       />
       {/* Открыть модальное окно для изменения уже существующего события */}
       <EventUpdateForm
@@ -69,6 +73,7 @@ function Main() {
         doctors={doctors}
         isModalOpen={isModalUpdateOpen}
         setIsModalOpen={setIsModalUpdateOpen}
+        role={role}
       />
     </div>
   );

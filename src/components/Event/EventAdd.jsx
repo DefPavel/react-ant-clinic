@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Modal, Button, ColorPicker } from 'antd';
-import { useDispatch } from 'react-redux';
+import { Form, Input, Select, Modal, Button, ColorPicker, Alert } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
 function EventAddForm({
@@ -8,8 +8,10 @@ function EventAddForm({
   doctors = [],
   isModalOpen = false,
   setIsModalOpen = (f) => f,
+  role = '',
 }) {
   const dispatch = useDispatch();
+  const { error } = useSelector((store) => store.scheduleReducer);
   const [formValues, setFormValues] = useState({
     doctor: '',
     title: '',
@@ -40,6 +42,14 @@ function EventAddForm({
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const errorAlert = error ? (
+    <div>
+      <Alert message={error} type="error" showIcon closable />
+    </div>
+  ) : (
+    ''
+  );
 
   const handleOk = async () => {
     if (formValues.date && formValues.time) {
@@ -127,6 +137,7 @@ function EventAddForm({
               Закрыть
             </Button>
             <Button
+              disabled={role !== '1'}
               style={{ backgroundColor: '#0f7986' }}
               key="submit"
               type="primary"
@@ -136,6 +147,7 @@ function EventAddForm({
             </Button>
           </div>
         </Form.Item>
+        {errorAlert}
       </Form>
     </Modal>
   );

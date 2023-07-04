@@ -8,6 +8,7 @@ function EventUpdateForm({
   doctors = [],
   isModalOpen = false,
   setIsModalOpen = (f) => f,
+  role = '',
 }) {
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
@@ -57,21 +58,10 @@ function EventUpdateForm({
 
   return (
     <Modal
+      onFinish={handleOk}
       title="Изменить Событие"
+      footer={null}
       onCancel={handleCancel}
-      footer={[
-        <Button key="back" danger onClick={handleCancel}>
-          Закрыть
-        </Button>,
-        <Button
-          key="submit"
-          style={{ backgroundColor: '#0f7986' }}
-          type="primary"
-          onClick={handleOk}
-        >
-          Сохранить
-        </Button>,
-      ]}
       open={isModalOpen}
     >
       <Form layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
@@ -136,6 +126,22 @@ function EventUpdateForm({
             value={formValues.color}
             onChange={(e) => handleChangeFormValue('color', e.metaColor.toHexString())}
           />
+        </Form.Item>
+        <Form.Item>
+          <div className="ant-modal-footer">
+            <Button key="back" danger onClick={handleCancel}>
+              Закрыть
+            </Button>
+            <Button
+              disabled={role !== '1'}
+              style={{ backgroundColor: '#0f7986' }}
+              key="submit"
+              type="primary"
+              htmlType="sumbit"
+            >
+              Изменить
+            </Button>
+          </div>
         </Form.Item>
       </Form>
     </Modal>
