@@ -38,7 +38,7 @@ function HeaderItem({ collapsed = true, setCollapsed = (f) => f }) {
           alt="logo"
           style={{ display: 'flex', height: '29px', marginRight: '6px', marginLeft: '20px' }}
         />
-        <p>Мед.клиника</p>
+        <p>Мед. клиника</p>
         <Button
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

@@ -97,7 +97,12 @@ function EventUpdateForm({
             value={objectValue.doctor}
             defaultValue={objectValue.doctor}
             onChange={(e) => {
-              handleChangeFormValue('doctor', { key: e, label: '' });
+              // console.log(e);
+              // console.log(doctors.find((x) => x.key === e).full_name);
+              handleChangeFormValue('doctor', {
+                key: e,
+                label: doctors.find((x) => x.key === e).full_name,
+              });
             }}
             options={doctors.map((item) => ({
               value: item.key,
