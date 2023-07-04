@@ -55,3 +55,21 @@ export const addShedule = createAsyncThunk('schedule/insert', async ({ formData 
     return thunkApi.rejectWithValue(e?.response?.data?.error || 'Произошла непредвиденная ошибка');
   }
 });
+
+export const updateShedule = createAsyncThunk('schedule/update', async ({ formData }, thunkApi) => {
+  try {
+    const cookies = new Cookies();
+    const response = await axios({
+      method: 'post',
+      url: `/api/schedule/update`,
+      data: formData,
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': cookies.get('auth-token'),
+      },
+    });
+    return response.data;
+  } catch (e) {
+    return thunkApi.rejectWithValue(e?.response?.data?.error || 'Произошла непредвиденная ошибка');
+  }
+});

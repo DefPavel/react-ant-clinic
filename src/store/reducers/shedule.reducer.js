@@ -12,6 +12,11 @@ const initialState = {
 export const scheduleReducer = createSlice({
   name: 'schedule',
   initialState,
+  reducers: {
+    clearError(state) {
+      state.error = '';
+    },
+  },
   extraReducers: {
     [getAllShedule.fulfilled]: (state, action) => {
       state.schedule = action.payload || [];

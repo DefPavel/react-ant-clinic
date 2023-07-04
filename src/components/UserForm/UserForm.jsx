@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, Button, Modal, Alert } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers, AddUser } from '../../store/actions/users.action';
+import { userReducer } from '../../store/reducers/users.reducer';
 
 function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
   const dispatch = useDispatch();
   const { error } = useSelector((store) => store.userReducer);
+  const { clearError } = userReducer.actions;
   const [formValues, setFormValues] = useState({
     fullname: '',
     username: '',
@@ -13,6 +15,12 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
     phone: '',
     role: '',
   });
+
+  useEffect(() => {
+    if (error) {
+      dispatch(clearError());
+    }
+  }, [formValues]);
 
   useEffect(() => {
     setFormValues({
@@ -25,13 +33,14 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
     });
   }, [isModalOpen]);
 
-  const errorAlert = error ? (
-    <div>
-      <Alert message={error} type="error" showIcon closable />
-    </div>
-  ) : (
-    ''
-  );
+  const errorAlert =
+    error !== '' ? (
+      <div>
+        <Alert message={error} type="error" showIcon closable />
+      </div>
+    ) : (
+      ''
+    );
 
   const handleChangeFormValue = (field, val) => {
     setFormValues({ ...formValues, [field]: val });
@@ -56,10 +65,10 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       formData.append('phone', formValues.phone);
       formData.append('role', formValues.role);
       await dispatch(AddUser({ formData }));
-      if (!error) {
+      if (error === '') {
         await dispatch(getAllUsers());
+        setIsModalOpen(false);
       }
-      setIsModalOpen(false);
     }
   };
 

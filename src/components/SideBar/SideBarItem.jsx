@@ -38,7 +38,8 @@ function SideBarItem({ collapsed = false, selectedKeys = '2' }) {
           style={{ marginTop: '10px', fontWeight: '500', flex: 'auto', minWidth: 0 }}
           theme="light"
           mode="inline"
-          items={role === '1' ? itemsMenu : itemsMenu.slice(1)}
+          selectedKeys={role !== '1' ? '1' : ''}
+          items={role === '1' ? itemsMenu : itemsMenu.slice(0, 1)}
         />
       </div>
     </Sider>

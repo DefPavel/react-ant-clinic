@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Modal, Button, ColorPicker, Alert } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
+import { scheduleReducer } from '../../store/reducers/shedule.reducer';
 
 function EventAddForm({
   selectDateStr,
@@ -12,6 +13,7 @@ function EventAddForm({
 }) {
   const dispatch = useDispatch();
   const { error } = useSelector((store) => store.scheduleReducer);
+  const { clearError } = scheduleReducer.actions;
   const [formValues, setFormValues] = useState({
     doctor: '',
     title: '',
@@ -21,6 +23,11 @@ function EventAddForm({
     description: '',
     color: '',
   });
+  useEffect(() => {
+    if (error) {
+      dispatch(clearError());
+    }
+  }, [formValues]);
 
   useEffect(() => {
     setFormValues({
@@ -55,14 +62,17 @@ function EventAddForm({
     if (formValues.date && formValues.time) {
       const formData = new FormData();
       formData.append('title', formValues.title);
+      formData.append('doctor', formValues.doctor);
       formData.append('description', formValues.description);
       formData.append('begin', formValues.date);
       formData.append('time', formValues.time);
       formData.append('phone', formValues.phone);
       formData.append('color', formValues.color);
       await dispatch(addShedule({ formData }));
-      await dispatch(getAllShedule());
-      setIsModalOpen(false);
+      if (error === '') {
+        await dispatch(getAllShedule());
+        setIsModalOpen(false);
+      }
     }
   };
 

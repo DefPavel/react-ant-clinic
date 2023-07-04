@@ -11,6 +11,11 @@ const initialState = {
 export const userReducer = createSlice({
   name: 'user',
   initialState,
+  reducers: {
+    clearError(state) {
+      state.error = '';
+    },
+  },
   extraReducers: {
     [getAllUsers.fulfilled]: (state, action) => {
       state.users = action.payload || [];

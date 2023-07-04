@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Modal, Button, ColorPicker } from 'antd';
-import { useDispatch } from 'react-redux';
-import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
+import { Form, Input, Select, Modal, Button, ColorPicker, Alert } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllShedule, updateShedule } from '../../store/actions/shedule.action';
+import { scheduleReducer } from '../../store/reducers/shedule.reducer';
 
 function EventUpdateForm({
   objectValue,
@@ -11,7 +12,10 @@ function EventUpdateForm({
   role = '',
 }) {
   const dispatch = useDispatch();
+  const { error } = useSelector((store) => store.scheduleReducer);
+  const { clearError } = scheduleReducer.actions;
   const [formValues, setFormValues] = useState({
+    id: '',
     doctor: '',
     title: '',
     phone: '',
@@ -19,10 +23,16 @@ function EventUpdateForm({
     time: '',
     description: '',
   });
+  useEffect(() => {
+    if (error) {
+      dispatch(clearError());
+    }
+  }, [formValues]);
 
   useEffect(() => {
     setFormValues({
       ...formValues,
+      id: objectValue?.id,
       doctor: objectValue?.doctor,
       title: objectValue?.title,
       phone: objectValue?.phone,
@@ -33,7 +43,17 @@ function EventUpdateForm({
     });
   }, [objectValue]);
 
+  const errorAlert =
+    error !== '' ? (
+      <div>
+        <Alert message={error} type="error" showIcon closable />
+      </div>
+    ) : (
+      ''
+    );
+
   const handleChangeFormValue = (field, val) => {
+    console.log(formValues);
     setFormValues({ ...formValues, [field]: val });
   };
 
@@ -44,27 +64,25 @@ function EventUpdateForm({
   const handleOk = async () => {
     if (formValues.date && formValues.time) {
       const formData = new FormData();
+      formData.append('id', formValues.id);
       formData.append('title', formValues.title);
+      formData.append('doctor', formValues.doctor.key);
       formData.append('description', formValues.description);
       formData.append('begin', formValues.date);
       formData.append('time', formValues.time);
       formData.append('phone', formValues.phone);
       formData.append('color', formValues.color);
-      await dispatch(addShedule({ formData }));
-      await dispatch(getAllShedule());
-      setIsModalOpen(false);
+      await dispatch(updateShedule({ formData }));
+      if (error === '') {
+        await dispatch(getAllShedule());
+        setIsModalOpen(false);
+      }
     }
   };
 
   return (
-    <Modal
-      onFinish={handleOk}
-      title="Изменить Событие"
-      footer={null}
-      onCancel={handleCancel}
-      open={isModalOpen}
-    >
-      <Form layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
+    <Modal title="Изменить Событие" footer={null} onCancel={handleCancel} open={isModalOpen}>
+      <Form onFinish={handleOk} layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
         <Form.Item
           rules={[{ required: true, message: 'Пожалуйста, введите ФИО!' }]}
           label="Пациент"
@@ -78,7 +96,9 @@ function EventUpdateForm({
         <Form.Item label="Доктор">
           <Select
             defaultValue={objectValue.doctor}
-            onChange={(e) => handleChangeFormValue('doctor', e)}
+            onChange={(e) => {
+              handleChangeFormValue('doctor', { key: e });
+            }}
             options={doctors.map((item) => ({
               value: item.key,
               label: item.full_name,
@@ -143,6 +163,7 @@ function EventUpdateForm({
             </Button>
           </div>
         </Form.Item>
+        {errorAlert}
       </Form>
     </Modal>
   );

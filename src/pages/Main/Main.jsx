@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'universal-cookie/es6';
 import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
 import { CalendarForm } from '../../components/CalendarForm/CalendarForm';
 import { EventAddForm } from '../../components/Event/EventAdd';
 import { EventUpdateForm } from '../../components/Event/EventUpdate';
-import Cookies from 'universal-cookie/es6';
 
 //! Посмотреть на рендер компонентов
 function Main() {
@@ -22,6 +22,7 @@ function Main() {
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [selectDateStr, setSelectDate] = useState('');
   const [objectEvent, setobjectEvent] = useState({
+    id: '',
     doctor: '',
     title: '',
     phone: '',
@@ -38,7 +39,8 @@ function Main() {
 
   const onEventSelect = useCallback((objectValue) => {
     setobjectEvent({
-      doctor: { key: objectValue.doctor_id, label: objectValue.doctor },
+      id: objectValue.id,
+      doctor: { key: objectValue.doctor_id },
       title: objectValue.title,
       phone: objectValue.phone,
       date: objectValue.date,

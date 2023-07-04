@@ -27,6 +27,7 @@ function CalendarForm({
           select={({ startStr }) => callbackOnselect(startStr)}
           eventClick={(info) => {
             callbackEventselect({
+              id: info.event.id,
               date: info.event.startStr.split('T')[0],
               ...info.event.extendedProps,
               color: info.event.backgroundColor,
