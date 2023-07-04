@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Modal, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
@@ -14,10 +14,22 @@ function EventAddForm({
     doctor: '',
     title: '',
     phone: '',
-    date: selectDateStr,
+    date: '',
     time: '',
     description: '',
   });
+
+  useEffect(() => {
+    setFormValues({
+      ...formValues,
+      doctor: '',
+      title: '',
+      phone: '',
+      date: selectDateStr || '',
+      time: '',
+      description: '',
+    });
+  }, [isModalOpen]);
 
   const handleChangeFormValue = (field, val) => {
     setFormValues({ ...formValues, [field]: val });
@@ -48,10 +60,15 @@ function EventAddForm({
           rules={[{ required: true, message: 'Пожалуйста, введите ФИО!' }]}
           label="Пациент"
         >
-          <Input required onChange={(e) => handleChangeFormValue('title', e.target.value)} />
+          <Input
+            required
+            value={formValues.title}
+            onChange={(e) => handleChangeFormValue('title', e.target.value)}
+          />
         </Form.Item>
         <Form.Item label="Доктор">
           <Select
+            value={formValues.doctor}
             onChange={(e) => handleChangeFormValue('doctor', e)}
             options={doctors.map((item) => ({
               value: item.key,
@@ -60,14 +77,17 @@ function EventAddForm({
           />
         </Form.Item>
         <Form.Item label="Телефон Пациента">
-          <Input onChange={(e) => handleChangeFormValue('phone', e.target.value)} />
+          <Input
+            value={formValues.phone}
+            onChange={(e) => handleChangeFormValue('phone', e.target.value)}
+          />
         </Form.Item>
         <Form.Item rules={[{ required: true, message: 'Пожалуйста, введите дату!' }]} label="Дата">
           <Input
             required
+            value={formValues.date}
             type="date"
             lang="ru"
-            value={selectDateStr}
             onChange={(e) => handleChangeFormValue('date', e.target.value)}
           />
         </Form.Item>
@@ -77,6 +97,7 @@ function EventAddForm({
         >
           <Input
             required
+            value={formValues.time}
             type="time"
             lang="ru"
             min="08:00"
@@ -85,7 +106,10 @@ function EventAddForm({
           />
         </Form.Item>
         <Form.Item label="Описание">
-          <Input.TextArea onChange={(e) => handleChangeFormValue('description', e.target.value)} />
+          <Input.TextArea
+            value={formValues.description}
+            onChange={(e) => handleChangeFormValue('description', e.target.value)}
+          />
         </Form.Item>
         <Form.Item>
           <div className="ant-modal-footer">

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
-import { BaseLayout } from '../../components/BaseLayout';
 import { CalendarForm } from '../../components/CalendarForm/CalendarForm';
 import { EventAddForm } from '../../components/Event/EventAdd';
 import { EventUpdateForm } from '../../components/Event/EventUpdate';
 
+//! Посмотреть на рендер компонентов
 function Main() {
   const dispatch = useDispatch();
   const scheduleEvents = useSelector((store) => store.scheduleReducer?.schedule);
@@ -27,45 +27,48 @@ function Main() {
     description: '',
   });
 
+  const onSelect = useCallback((dateSelect) => {
+    setSelectDate(dateSelect);
+    setIsModalAddOpen(true);
+  }, []);
+
+  const onEventSelect = useCallback((objectValue) => {
+    setobjectEvent({
+      doctor: { key: objectValue.doctor_id, label: objectValue.doctor },
+      title: objectValue.title,
+      phone: objectValue.phone,
+      date: objectValue.date,
+      time: objectValue.time,
+      description: objectValue.description,
+    });
+    setIsModalUpdateOpen(true);
+  });
+
   return (
-    <BaseLayout titleName="Расписание">
-      <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
-        <CalendarForm
-          isModalOpen={isModalOpen}
-          setIsModalAddOpen={setIsModalAddOpen}
-          allEvents={scheduleEvents}
-          callbackOnselect={(dateSelect) => {
-            setSelectDate(dateSelect);
-            setIsModalAddOpen(true);
-          }}
-          callbackEventselect={(objectValue) => {
-            setobjectEvent({
-              doctor: objectValue.doctor,
-              title: objectValue.title,
-              phone: objectValue.phone,
-              date: objectValue.date,
-              time: objectValue.time,
-              description: objectValue.description,
-            });
-            setIsModalUpdateOpen(true);
-          }}
-        />
-        {/* Открыть модальное окно для создания события */}
-        <EventAddForm
-          selectDateStr={selectDateStr}
-          doctors={doctors}
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalAddOpen}
-        />
-        {/* Открыть модальное окно для изменения уже существующего события */}
-        <EventUpdateForm
-          objectValue={objectEvent}
-          doctors={doctors}
-          isModalOpen={isModalUpdateOpen}
-          setIsModalOpen={setIsModalUpdateOpen}
-        />
-      </div>
-    </BaseLayout>
+    <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
+      <CalendarForm
+        isModalOpen={isModalOpen}
+        setIsModalAddOpen={setIsModalAddOpen}
+        allEvents={scheduleEvents}
+        callbackOnselect={onSelect}
+        setSelectDate={setSelectDate}
+        callbackEventselect={onEventSelect}
+      />
+      {/* Открыть модальное окно для создания события */}
+      <EventAddForm
+        selectDateStr={selectDateStr}
+        doctors={doctors}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalAddOpen}
+      />
+      {/* Открыть модальное окно для изменения уже существующего события */}
+      <EventUpdateForm
+        objectValue={objectEvent}
+        doctors={doctors}
+        isModalOpen={isModalUpdateOpen}
+        setIsModalOpen={setIsModalUpdateOpen}
+      />
+    </div>
   );
 }
 

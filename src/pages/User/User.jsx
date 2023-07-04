@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Tag, Space, Row, Button } from 'antd';
-import { BaseLayout } from '../../components/BaseLayout';
 import { getAllUsers, DeleteUser } from '../../store/actions/users.action';
 import { UserForm } from '../../components/UserForm';
 
@@ -64,22 +63,20 @@ function User() {
   ];
 
   return (
-    <BaseLayout titleName="Пользователи">
-      <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
-        <Row style={{ marginBottom: '1rem', justifyContent: 'end' }}>
-          <Button
-            style={{ backgroundColor: '#0f7986' }}
-            type="primary"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Создать
-          </Button>
-        </Row>
+    <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
+      <Row style={{ marginBottom: '1rem', justifyContent: 'end' }}>
+        <Button
+          style={{ backgroundColor: '#0f7986' }}
+          type="primary"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Создать
+        </Button>
+      </Row>
 
-        <Table dataSource={usersData} columns={columns} />
-        <UserForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      </div>
-    </BaseLayout>
+      <Table dataSource={usersData} columns={columns} />
+      <UserForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+    </div>
   );
 }
 
