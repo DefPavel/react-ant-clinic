@@ -1,4 +1,6 @@
-{
+{ 
+  "homepage": ".",
+  "proxy": "http://localhost:8080",
   "name": "react-ant-clinic",
   "version": "0.1.0",
   "private": true,
