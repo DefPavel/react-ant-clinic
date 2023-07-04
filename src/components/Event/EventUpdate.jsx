@@ -53,6 +53,8 @@ function EventUpdateForm({
     }
   };
 
+  //   console.log(objectValue);
+
   return (
     <Modal
       title="Изменить Событие"

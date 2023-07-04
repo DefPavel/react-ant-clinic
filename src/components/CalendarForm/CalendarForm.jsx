@@ -24,8 +24,10 @@ function CalendarForm({
           navLinks
           dayMaxEvents
           selectable
+          color={allEvents.color || 'blue'}
           select={({ startStr }) => callbackOnselect(startStr)}
           eventClick={(info) => {
+            console.log(info.event.extendedProps);
             callbackEventselect({
               date: info.event.startStr.split('T')[0],
               ...info.event.extendedProps,

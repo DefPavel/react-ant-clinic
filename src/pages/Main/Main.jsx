@@ -25,6 +25,7 @@ function Main() {
     date: '',
     time: '',
     description: '',
+    color: '',
   });
 
   const onSelect = useCallback((dateSelect) => {
@@ -40,9 +41,10 @@ function Main() {
       date: objectValue.date,
       time: objectValue.time,
       description: objectValue.description,
+      color: objectValue.color,
     });
     setIsModalUpdateOpen(true);
-  });
+  }, []);
 
   return (
     <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
