@@ -45,8 +45,10 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       formData.append('phone', formValues.phone);
       formData.append('role', formValues.role);
       await dispatch(AddUser({ formData }));
-      if (error !== '') await dispatch(getAllUsers());
-      // setIsModalOpen(false);
+      if (error !== '') {
+        await dispatch(getAllUsers());
+        setIsModalOpen(false);
+      }
     }
   };
 
