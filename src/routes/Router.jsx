@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Login } from '../pages/Login/Login';
 import {
   LoginMiddleware,
@@ -29,7 +29,7 @@ function Router() {
   );
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route
           path="/login"
@@ -43,7 +43,7 @@ function Router() {
         <Route path="/users" element={UsersPage} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

@@ -2,14 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 
-// const host = 'http://localhost:8080';
+const host = 'http://localhost:8080';
 
 export const getAllShedule = createAsyncThunk('schedule/get', async (thunkApi) => {
   try {
     const cookies = new Cookies();
     const response = await axios({
       method: 'get',
-      url: `/api/schedule/get`,
+      url: `${host}/api/schedule/get`,
       headers: {
         'Content-Type': 'application/json',
         'auth-token': cookies.get('auth-token'),
@@ -26,7 +26,7 @@ export const GetDoctors = createAsyncThunk('schedule/getDoctors', async (thunkAp
     const cookies = new Cookies();
     const response = await axios({
       method: 'get',
-      url: `/api/users/doctors`,
+      url: `${host}/api/users/doctors`,
       headers: {
         'Content-Type': 'application/json',
         'auth-token': cookies.get('auth-token'),
@@ -43,7 +43,7 @@ export const addShedule = createAsyncThunk('schedule/insert', async ({ formData 
     const cookies = new Cookies();
     const response = await axios({
       method: 'post',
-      url: `/api/schedule/create`,
+      url: `${host}/api/schedule/create`,
       data: formData,
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export const updateShedule = createAsyncThunk('schedule/update', async ({ formDa
     const cookies = new Cookies();
     const response = await axios({
       method: 'post',
-      url: `/api/schedule/update`,
+      url: `${host}/api/schedule/update`,
       data: formData,
       headers: {
         'Content-Type': 'application/json',
