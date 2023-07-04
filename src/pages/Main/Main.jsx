@@ -40,7 +40,7 @@ function Main() {
   const onEventSelect = useCallback((objectValue) => {
     setobjectEvent({
       id: objectValue.id,
-      doctor: { key: objectValue.doctor_id },
+      doctor: { key: objectValue.doctor_id, label: objectValue.doctor },
       title: objectValue.title,
       phone: objectValue.phone,
       date: objectValue.date,

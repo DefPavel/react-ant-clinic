@@ -53,7 +53,6 @@ function EventUpdateForm({
     );
 
   const handleChangeFormValue = (field, val) => {
-    console.log(formValues);
     setFormValues({ ...formValues, [field]: val });
   };
 
@@ -95,9 +94,10 @@ function EventUpdateForm({
         </Form.Item>
         <Form.Item label="Доктор">
           <Select
+            value={objectValue.doctor}
             defaultValue={objectValue.doctor}
             onChange={(e) => {
-              handleChangeFormValue('doctor', { key: e });
+              handleChangeFormValue('doctor', { key: e, label: '' });
             }}
             options={doctors.map((item) => ({
               value: item.key,
