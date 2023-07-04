@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, Button, Modal, Alert } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers, AddUser } from '../../store/actions/users.action';
@@ -13,6 +13,17 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
     phone: '',
     role: '',
   });
+
+  useEffect(() => {
+    setFormValues({
+      ...formValues,
+      fullname: '',
+      username: '',
+      password: '',
+      phone: '',
+      role: '',
+    });
+  }, [isModalOpen]);
 
   const errorAlert = error ? (
     <div>
@@ -45,10 +56,10 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       formData.append('phone', formValues.phone);
       formData.append('role', formValues.role);
       await dispatch(AddUser({ formData }));
-      if (error !== '') {
+      if (!error) {
         await dispatch(getAllUsers());
-        setIsModalOpen(false);
       }
+      setIsModalOpen(false);
     }
   };
 
