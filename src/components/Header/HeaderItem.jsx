@@ -32,13 +32,13 @@ function HeaderItem({ collapsed = true, setCollapsed = (f) => f }) {
         backgroundColor: '#ffffff',
       }}
     >
-      <Space>
+      <Space align="baseline">
         <img
           src={Logo}
           alt="logo"
           style={{ display: 'flex', height: '29px', marginRight: '6px', marginLeft: '20px' }}
         />
-        <p>Медицинская клиника</p>
+        <p>Мед.клиника</p>
         <Button
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
