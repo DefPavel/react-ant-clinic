@@ -56,7 +56,7 @@ function LoginForm({
               onClick={handleSubmit}
               loading={loading}
             >
-              Ввойти
+              Войти
             </Button>
           </Form.Item>
         </Row>
