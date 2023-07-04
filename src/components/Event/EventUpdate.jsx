@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Modal, Button } from 'antd';
+import { Form, Input, Select, Modal, Button, ColorPicker } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 
@@ -28,6 +28,7 @@ function EventUpdateForm({
       date: objectValue?.date,
       time: objectValue?.time,
       description: objectValue?.description,
+      color: objectValue?.color,
     });
   }, [objectValue]);
 
@@ -47,6 +48,7 @@ function EventUpdateForm({
       formData.append('begin', formValues.date);
       formData.append('time', formValues.time);
       formData.append('phone', formValues.phone);
+      formData.append('color', formValues.color);
       await dispatch(addShedule({ formData }));
       await dispatch(getAllShedule());
       setIsModalOpen(false);
@@ -126,6 +128,13 @@ function EventUpdateForm({
           <Input.TextArea
             value={formValues.description}
             onChange={(e) => handleChangeFormValue('description', e.target.value)}
+          />
+        </Form.Item>
+        <Form.Item label="Цвет записи">
+          <ColorPicker
+            format="hex"
+            value={formValues.color}
+            onChange={(e) => handleChangeFormValue('color', e.metaColor.toHexString())}
           />
         </Form.Item>
       </Form>

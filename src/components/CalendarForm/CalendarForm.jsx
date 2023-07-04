@@ -29,6 +29,7 @@ function CalendarForm({
             callbackEventselect({
               date: info.event.startStr.split('T')[0],
               ...info.event.extendedProps,
+              color: info.event.backgroundColor,
               title: info.event.title,
             });
           }}
