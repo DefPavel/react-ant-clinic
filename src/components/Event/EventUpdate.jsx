@@ -94,7 +94,7 @@ function EventUpdateForm({
         </Form.Item>
         <Form.Item label="Доктор">
           <Select
-            value={objectValue.doctor}
+            value={formValues.doctor}
             defaultValue={objectValue.doctor}
             onChange={(e) => {
               // console.log(e);

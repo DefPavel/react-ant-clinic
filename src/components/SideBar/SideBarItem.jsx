@@ -7,7 +7,7 @@ import './SideBar.css';
 
 const { Sider } = Layout;
 
-function SideBarItem({ collapsed = false, selectedKeys = '2' }) {
+function SideBarItem({ collapsed = false }) {
   const cookies = new Cookies();
   const role = cookies.get('role');
   const itemsMenu = [

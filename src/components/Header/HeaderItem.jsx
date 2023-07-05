@@ -32,7 +32,7 @@ function HeaderItem({ collapsed = true, setCollapsed = (f) => f }) {
         backgroundColor: '#ffffff',
       }}
     >
-      <Space align="baseline">
+      <Space align="center">
         <img
           src={Logo}
           alt="logo"
