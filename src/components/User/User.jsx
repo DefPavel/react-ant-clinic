@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Tag, Space, Row, Button } from 'antd';
 import { getAllUsers, DeleteUser } from '../../store/actions/users.action';
-import { UserForm } from '../../components/UserForm';
+import { UserForm } from '../UserForm';
 
 function User() {
   const dispatch = useDispatch();

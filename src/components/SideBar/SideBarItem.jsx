@@ -1,32 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PieChartOutlined, UserOutlined } from '@ant-design/icons';
 import Cookies from 'universal-cookie/es6';
 import { Layout, Menu } from 'antd';
-import { NavLink } from 'react-router-dom';
 import './SideBar.css';
 
 const { Sider } = Layout;
 
-function SideBarItem({ collapsed = false }) {
+function SideBarItem({ collapsed = false, setPage = (f) => f }) {
+  const [current, setCurrent] = useState();
   const cookies = new Cookies();
   const role = cookies.get('role');
   const itemsMenu = [
     {
-      key: '1',
-      icon: (
-        <NavLink to="/">
-          <PieChartOutlined style={{ fontSize: '18px' }} />
-        </NavLink>
-      ),
+      key: 'calendar',
+      icon: <PieChartOutlined style={{ fontSize: '18px' }} />,
       label: 'Расписание',
     },
     {
-      key: '2',
-      icon: (
-        <NavLink to="/users">
-          <UserOutlined style={{ fontSize: '18px' }} />
-        </NavLink>
-      ),
+      key: 'user',
+      icon: <UserOutlined style={{ fontSize: '18px' }} />,
       label: 'Пользователи',
     },
   ];
@@ -35,6 +27,7 @@ function SideBarItem({ collapsed = false }) {
     <Sider style={{ backgroundColor: '#ffffff' }} trigger={null} collapsible collapsed={collapsed}>
       <div style={{ display: 'flex' }}>
         <Menu
+          onClick={(e) => setPage(e.key)}
           style={{ marginTop: '10px', fontWeight: '500', flex: 'auto', minWidth: 0 }}
           theme="light"
           mode="inline"

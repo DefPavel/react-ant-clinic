@@ -1,7 +1,14 @@
 .title {
-    display: flex;
-    align-items: center;
-    font-size: 17px;
-    font-weight: 600;
-    padding: 0 20px;
+	display: flex;
+	align-items: center;
+	font-size: 17px;
+	font-weight: 600;
+	padding: 0 20px;
+}
+
+.button {
+	position: absolute;
+	background: transparent;
+	border: none;
+	width: 100%;
 }
