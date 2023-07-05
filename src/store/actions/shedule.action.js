@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 
-const host = 'http://localhost:8080';
+const host = process.env.REACT_APP_API_HOST;
 
 export const getAllShedule = createAsyncThunk('schedule/get', async (thunkApi) => {
   try {

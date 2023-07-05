@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const host = 'http://localhost:8080';
+const host = process.env.REACT_APP_API_HOST;
 
 export const signIn = createAsyncThunk('auth/signIn', async ({ username, password }, thunkApi) => {
   try {
