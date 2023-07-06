@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from 'antd';
 import Cookies from 'universal-cookie/es6';
 import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
-import { CalendarForm } from './CalendarForm/CalendarForm';
+import { CalendarForm } from './CalendarForm';
 import { EventAddForm } from '../Event/EventAdd';
 import { EventUpdateForm } from '../Event/EventUpdate';
 import { SecretMiddleware } from '../../middlewares/privates.middleware';
