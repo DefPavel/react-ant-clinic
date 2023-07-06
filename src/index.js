@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import Router from './routes/Router';
 import { setupStore } from './store/store';
 import './styles/index.css';
-import './routes/middlewares/axiosInterceptors';
+import './middlewares/axiosInterceptors';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = setupStore();
