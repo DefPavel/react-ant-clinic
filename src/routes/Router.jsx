@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Login } from '../pages/Login/Login';
 import { LoginMiddleware } from '../middlewares/privates.middleware';
 import { NotFound } from '../pages/NotFound/NotFound';
@@ -7,7 +7,7 @@ import { Main } from '../pages/Main';
 
 function Router() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route
           path="/login"
@@ -20,7 +20,7 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
