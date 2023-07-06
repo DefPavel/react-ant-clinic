@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Modal, Button, ColorPicker, Alert } from 'antd';
+import { Form, Input, Select, Modal, Button, Alert } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 import { scheduleReducer } from '../../store/reducers/shedule.reducer';
@@ -21,7 +21,6 @@ function EventAddForm({
     date: '',
     time: '',
     description: '',
-    color: '',
   });
   useEffect(() => {
     if (error) {
@@ -38,7 +37,6 @@ function EventAddForm({
       date: selectDateStr || '',
       time: '',
       description: '',
-      color: '#4096ff',
     });
   }, [isModalOpen]);
 
@@ -67,7 +65,6 @@ function EventAddForm({
       formData.append('begin', formValues.date);
       formData.append('time', formValues.time);
       formData.append('phone', formValues.phone);
-      formData.append('color', formValues.color);
       await dispatch(addShedule({ formData }));
       if (error === '') {
         await dispatch(getAllShedule());
@@ -132,13 +129,6 @@ function EventAddForm({
           <Input.TextArea
             value={formValues.description}
             onChange={(e) => handleChangeFormValue('description', e.target.value)}
-          />
-        </Form.Item>
-        <Form.Item label="Цвет записи">
-          <ColorPicker
-            format="hex"
-            value={formValues.color}
-            onChange={(e) => handleChangeFormValue('color', e.metaColor.toHexString())}
           />
         </Form.Item>
         <Form.Item>

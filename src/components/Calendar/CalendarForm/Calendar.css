@@ -89,11 +89,6 @@
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
 }
 
-.Popover,
-.ReactModal__Overlay {
-	z-index: 1000;
-}
-
 .fc .fc-popover {
 	box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
 	position: absolute;

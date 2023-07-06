@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography } from 'antd';
+import { Typography, Select, Layout } from 'antd';
 import Cookies from 'universal-cookie/es6';
 import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
 import { CalendarForm } from './CalendarForm';
@@ -52,9 +52,17 @@ function Calendar() {
     setIsModalUpdateOpen(true);
   }, []);
 
+  console.log(doctors);
+
   return (
     <SecretMiddleware>
       <Typography.Title level={2}>Расписание</Typography.Title>
+      <Select
+        mode="multiple"
+        showArrow
+        options={[{ value: 1 }, { value: 2 }]}
+        style={{ width: '200px', marginBottom: '10px' }}
+      />
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
         <CalendarForm
           isModalOpen={isModalOpen}
