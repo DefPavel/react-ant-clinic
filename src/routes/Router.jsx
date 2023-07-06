@@ -1,11 +1,7 @@
 import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Login } from '../pages/Login/Login';
-import {
-  LoginMiddleware,
-  SecretMiddleware,
-  SecretRolesMiddleware,
-} from './middlewares/privates.middleware';
+import { LoginMiddleware } from '../middlewares/privates.middleware';
 import { NotFound } from '../pages/NotFound/NotFound';
 import { Main } from '../pages/Main';
 
