@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import ruLocale from '@fullcalendar/core/locales/ru';
 import './Calendar.css';
 
 function CalendarForm({
@@ -24,9 +25,15 @@ function CalendarForm({
           navLinks
           dayMaxEvents
           selectable
+          slotMinTime="08:00:00"
+          slotMaxTime="18:00:00"
+          firstDay={1}
+          weekends
+          height="450px"
+          locale={ruLocale}
           businessHours={{
             // days of week. an array of zero-based day of week integers (0=Sunday)
-            daysOfWeek: [1, 2, 3, 4], // Monday - Thursday
+            // daysOfWeek: [1, 2, 3, 4, 5], // Monday - Thursday
             startTime: '08:00', // a start time
             endTime: '18:00', // an end time
           }}
@@ -55,15 +62,6 @@ function CalendarForm({
               },
             },
           }}
-          buttonText={{
-            today: 'Сегодня',
-            month: 'Месяц',
-            week: 'Неделя',
-            day: 'День',
-            list: 'Список',
-          }}
-          height="450px"
-          locale="ru"
         />
       </div>
     </div>

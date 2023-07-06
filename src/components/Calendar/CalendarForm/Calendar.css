@@ -13,6 +13,12 @@
 		order: 2;
 	}
 }
+
+.fc-timegrid-event-harness {
+	font-size: 16px;
+	font-weight: 600;
+}
+
 .fc .fc-button-primary {
 	background-color: #0f7986;
 }

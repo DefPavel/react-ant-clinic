@@ -69,8 +69,8 @@ function EventUpdateForm({
       formData.append('begin', formValues.date);
       formData.append('time', formValues.time);
       formData.append('phone', formValues.phone);
-      await dispatch(updateShedule({ formData }));
-      if (error === '') {
+      const res = await dispatch(updateShedule({ formData }));
+      if (!res?.error) {
         await dispatch(getAllShedule());
         setIsModalOpen(false);
       }
@@ -95,8 +95,6 @@ function EventUpdateForm({
             value={formValues.doctor}
             defaultValue={objectValue.doctor}
             onChange={(e) => {
-              // console.log(e);
-              // console.log(doctors.find((x) => x.key === e).full_name);
               handleChangeFormValue('doctor', {
                 key: e,
                 label: doctors.find((x) => x.key === e).full_name,

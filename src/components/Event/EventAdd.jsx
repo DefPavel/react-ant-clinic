@@ -34,7 +34,7 @@ function EventAddForm({
       doctor: '',
       title: '',
       phone: '',
-      date: selectDateStr || '',
+      date: selectDateStr || new Date().toISOString().slice(0, 10),
       time: '',
       description: '',
     });
@@ -65,8 +65,8 @@ function EventAddForm({
       formData.append('begin', formValues.date);
       formData.append('time', formValues.time);
       formData.append('phone', formValues.phone);
-      await dispatch(addShedule({ formData }));
-      if (error === '') {
+      const res = await dispatch(addShedule({ formData }));
+      if (!res?.error) {
         await dispatch(getAllShedule());
         setIsModalOpen(false);
       }

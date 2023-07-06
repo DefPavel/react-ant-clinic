@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Select, Layout } from 'antd';
+import { Typography, Select } from 'antd';
 import Cookies from 'universal-cookie/es6';
 import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
 import { CalendarForm } from './CalendarForm';
@@ -51,8 +51,6 @@ function Calendar() {
     });
     setIsModalUpdateOpen(true);
   }, []);
-
-  console.log(doctors);
 
   return (
     <SecretMiddleware>
