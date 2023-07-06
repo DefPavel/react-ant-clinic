@@ -7,7 +7,7 @@ import './SideBar.css';
 const { Sider } = Layout;
 
 function SideBarItem({ collapsed = false, setPage = (f) => f }) {
-  const [current, setCurrent] = useState();
+  const [current, setCurrent] = useState('calendar');
   const cookies = new Cookies();
   const role = cookies.get('role');
   const itemsMenu = [
@@ -27,11 +27,14 @@ function SideBarItem({ collapsed = false, setPage = (f) => f }) {
     <Sider style={{ backgroundColor: '#ffffff' }} trigger={null} collapsible collapsed={collapsed}>
       <div style={{ display: 'flex' }}>
         <Menu
-          onClick={(e) => setPage(e.key)}
+          onClick={(e) => {
+            setPage(e.key);
+            setCurrent(e.key);
+          }}
           style={{ marginTop: '10px', fontWeight: '500', flex: 'auto', minWidth: 0 }}
           theme="light"
           mode="inline"
-          selectedKeys={role !== '1' ? '1' : ''}
+          selectedKeys={[current]}
           items={role === '1' ? itemsMenu : itemsMenu.slice(0, 1)}
         />
       </div>
