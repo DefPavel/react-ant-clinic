@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, Button, Modal, Alert } from 'antd';
+import { Form, Input, Select, Button, Modal, Alert, ColorPicker } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers, AddUser } from '../../store/actions/users.action';
-import { userReducer } from '../../store/reducers/users.reducer';
+import { getAllUsers, AddUser } from '../../../store/actions/users.action';
+import { userReducer } from '../../../store/reducers/users.reducer';
 
 function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
   const dispatch = useDispatch();
@@ -14,13 +14,8 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
     password: '',
     phone: '',
     role: '',
+    color: '',
   });
-
-  useEffect(() => {
-    if (error) {
-      dispatch(clearError());
-    }
-  }, [formValues]);
 
   useEffect(() => {
     setFormValues({
@@ -30,8 +25,15 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       password: '',
       phone: '',
       role: '',
+      color: '#4096ff',
     });
-  }, [isModalOpen]);
+  }, []);
+
+  useEffect(() => {
+    if (error) {
+      dispatch(clearError());
+    }
+  }, [formValues]);
 
   const errorAlert =
     error !== '' ? (
@@ -64,8 +66,9 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       formData.append('password', formValues.password);
       formData.append('phone', formValues.phone);
       formData.append('role', formValues.role);
-      await dispatch(AddUser({ formData }));
-      if (error === '') {
+      formData.append('color', formValues.color);
+      const res = await dispatch(AddUser({ formData }));
+      if (!res?.error) {
         await dispatch(getAllUsers());
         setIsModalOpen(false);
       }
@@ -122,6 +125,13 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
               { value: '1', label: 'Администратор' },
               { value: '2', label: 'Врач' },
             ]}
+          />
+        </Form.Item>
+        <Form.Item label="Цвет">
+          <ColorPicker
+            format="hex"
+            value={formValues.color}
+            onChange={(e) => handleChangeFormValue('color', e.metaColor.toHexString())}
           />
         </Form.Item>
         <Form.Item>

@@ -36,7 +36,7 @@ function CalendarForm({
               id: info.event.id,
               date: info.event.startStr.split('T')[0],
               ...info.event.extendedProps,
-              color: info.event.backgroundColor,
+              color: info.event.color,
               title: info.event.title,
             });
           }}
@@ -62,7 +62,7 @@ function CalendarForm({
             day: 'День',
             list: 'Список',
           }}
-          height="500px"
+          height="450px"
           locale="ru"
         />
       </div>
