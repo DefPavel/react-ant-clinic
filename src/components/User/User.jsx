@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table, Tag, Space, Row, Button, Typography } from 'antd';
 import { getAllUsers, DeleteUser } from '../../store/actions/users.action';
 import { SecretRolesMiddleware } from '../../middlewares/privates.middleware';
-import { UserForm } from '../UserForm';
+import { UserForm } from './UserForm';
 
 function User() {
   const dispatch = useDispatch();

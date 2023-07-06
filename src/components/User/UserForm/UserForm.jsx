@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, Button, Modal, Alert } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers, AddUser } from '../../store/actions/users.action';
-import { userReducer } from '../../store/reducers/users.reducer';
+import { getAllUsers, AddUser } from '../../../store/actions/users.action';
+import { userReducer } from '../../../store/reducers/users.reducer';
 
 function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
   const dispatch = useDispatch();
@@ -64,8 +64,8 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       formData.append('password', formValues.password);
       formData.append('phone', formValues.phone);
       formData.append('role', formValues.role);
-      await dispatch(AddUser({ formData }));
-      if (error === '') {
+      const res = await dispatch(AddUser({ formData }));
+      if (!res?.error) {
         await dispatch(getAllUsers());
         setIsModalOpen(false);
       }
