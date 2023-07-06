@@ -19,11 +19,17 @@ function CalendarForm({
         <Fullcalendar
           timeZone="UTC"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-          initialView="dayGridMonth"
+          initialView="timeGridDay"
           buttonIcons
           navLinks
           dayMaxEvents
           selectable
+          businessHours={{
+            // days of week. an array of zero-based day of week integers (0=Sunday)
+            daysOfWeek: [1, 2, 3, 4], // Monday - Thursday
+            startTime: '08:00', // a start time
+            endTime: '17:00', // an end time
+          }}
           select={({ startStr }) => callbackOnselect(startStr)}
           eventClick={(info) => {
             callbackEventselect({
@@ -36,7 +42,7 @@ function CalendarForm({
           }}
           events={allEvents}
           headerToolbar={{
-            start: 'today,dayGridMonth,listWeek',
+            start: 'today,dayGridMonth,timeGridWeek,timeGridDay',
             center: 'title',
             end: 'new prevYear,prev,next,nextYear',
           }}
@@ -52,6 +58,8 @@ function CalendarForm({
           buttonText={{
             today: 'Сегодня',
             month: 'Месяц',
+            week: 'Неделя',
+            day: 'День',
             list: 'Список',
           }}
           height="500px"
