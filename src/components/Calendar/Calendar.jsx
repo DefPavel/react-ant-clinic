@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Select } from 'antd';
+import { Typography } from 'antd';
 import Cookies from 'universal-cookie/es6';
 import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
+import { ColorfulSelect } from '../ColorfulSelect';
 import { CalendarForm } from './CalendarForm';
 import { EventAddForm } from '../Event/EventAdd';
 import { EventUpdateForm } from '../Event/EventUpdate';
@@ -55,11 +56,14 @@ function Calendar() {
   return (
     <SecretMiddleware>
       <Typography.Title level={2}>Расписание</Typography.Title>
-      <Select
-        mode="multiple"
-        showArrow
-        options={[{ value: 1 }, { value: 2 }]}
-        style={{ width: '200px', marginBottom: '10px' }}
+      <ColorfulSelect
+        options={doctors.map((el) => ({
+          label: el.full_name,
+          value: {
+            id: el.key,
+            color: el.color,
+          },
+        }))}
       />
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
         <CalendarForm

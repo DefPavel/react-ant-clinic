@@ -9,7 +9,7 @@ export const getAllShedule = createAsyncThunk('schedule/get', async (thunkApi) =
     const cookies = new Cookies();
     const response = await axios({
       method: 'get',
-      url: `${host}/api/schedule/get`,
+      url: `${host}/api/schedule/getIsChecked`,
       headers: {
         'Content-Type': 'application/json',
         'auth-token': cookies.get('auth-token'),
