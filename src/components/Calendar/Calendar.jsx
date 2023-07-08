@@ -59,10 +59,8 @@ function Calendar() {
       <ColorfulSelect
         options={doctors.map((el) => ({
           label: el.full_name,
-          value: {
-            id: el.key,
-            color: el.color,
-          },
+          value: el.key,
+          color: el.color,
         }))}
       />
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>

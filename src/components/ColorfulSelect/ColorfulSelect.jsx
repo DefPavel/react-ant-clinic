@@ -1,28 +1,30 @@
 import React from 'react';
 import { Select, Tag } from 'antd';
 
-const tagRender = (props) => {
-  const { label, value, closable, onClose } = props;
-  const onPreventMouseDown = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-  return (
-    <Tag
-      color={value.color}
-      onMouseDown={onPreventMouseDown}
-      closable={closable}
-      onClose={onClose}
-      style={{
-        marginRight: 3,
-      }}
-    >
-      {label}
-    </Tag>
-  );
-};
+function ColorfulSelect({ options = [] }) {
+  const tagRender = (props) => {
+    const { label, value, closable, onClose } = props;
+    const onPreventMouseDown = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
 
-function ColorfulSelect({ options }) {
+    const findColor = (id) => options.find((el) => el.value === id).color;
+    return (
+      <Tag
+        color={findColor(value)}
+        onMouseDown={onPreventMouseDown}
+        closable={closable}
+        onClose={onClose}
+        style={{
+          marginRight: 3,
+        }}
+      >
+        {label}
+      </Tag>
+    );
+  };
+
   return (
     <Select
       mode="multiple"
