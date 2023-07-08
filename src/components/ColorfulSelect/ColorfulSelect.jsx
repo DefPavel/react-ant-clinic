@@ -34,7 +34,8 @@ function ColorfulSelect({ options = [] }) {
         width: '200px',
         marginBottom: '6px',
       }}
-      onChange={(e) => console.log(e)}
+      onDeselect={(e) => console.log(e)}
+      onSelect={(e) => console.log(e)}
       options={options}
     />
   );
