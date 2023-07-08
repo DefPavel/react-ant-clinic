@@ -45,7 +45,7 @@ function Calendar() {
     setobjectEvent({
       id: objectValue.id,
       doctor: { key: objectValue.doctor_id, label: objectValue.doctor },
-      title: objectValue.title,
+      title: objectValue.title.split(';')[1] || '',
       phone: objectValue.phone,
       date: objectValue.date,
       time: objectValue.time,
