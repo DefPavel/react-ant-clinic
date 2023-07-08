@@ -32,6 +32,8 @@ function Calendar() {
     time: '',
     description: '',
     color: '',
+    isPhone: false,
+    isComming: false,
   });
 
   const onSelect = useCallback((dateSelect) => {
@@ -49,6 +51,8 @@ function Calendar() {
       time: objectValue.time,
       description: objectValue.description,
       color: objectValue.color,
+      isPhone: objectValue.isPhone,
+      isComming: objectValue.isComming,
     });
     setIsModalUpdateOpen(true);
   }, []);

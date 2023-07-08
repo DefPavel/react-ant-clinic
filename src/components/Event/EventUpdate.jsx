@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Modal, Button, Alert } from 'antd';
+import { Form, Input, Select, Modal, Button, Alert, Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllShedule, updateShedule } from '../../store/actions/shedule.action';
+import { getAllShedule, updateShedule, deleteShedule } from '../../store/actions/shedule.action';
 import { scheduleReducer } from '../../store/reducers/shedule.reducer';
 
 function EventUpdateForm({
@@ -22,6 +22,8 @@ function EventUpdateForm({
     date: '',
     time: '',
     description: '',
+    isPhone: false,
+    isComming: false,
   });
   useEffect(() => {
     if (error) {
@@ -39,6 +41,8 @@ function EventUpdateForm({
       date: objectValue?.date,
       time: objectValue?.time,
       description: objectValue?.description,
+      isPhone: objectValue?.isPhone,
+      isComming: objectValue?.isComming,
     });
   }, [objectValue]);
 
@@ -59,6 +63,14 @@ function EventUpdateForm({
     setIsModalOpen(false);
   };
 
+  const dropShedule = async () => {
+    const res = await dispatch(deleteShedule(formValues.id));
+    if (!res?.error) {
+      await dispatch(getAllShedule());
+      setIsModalOpen(false);
+    }
+  };
+
   const handleOk = async () => {
     if (formValues.date && formValues.time) {
       const formData = new FormData();
@@ -69,6 +81,8 @@ function EventUpdateForm({
       formData.append('begin', formValues.date);
       formData.append('time', formValues.time);
       formData.append('phone', formValues.phone);
+      formData.append('isPhone', formValues.isPhone);
+      formData.append('isComming', formValues.isComming);
       const res = await dispatch(updateShedule({ formData }));
       if (!res?.error) {
         await dispatch(getAllShedule());
@@ -135,6 +149,24 @@ function EventUpdateForm({
             onChange={(e) => handleChangeFormValue('time', e.target.value)}
           />
         </Form.Item>
+        <Form.Item style={{ marginBottom: 0 }}>
+          <Form.Item style={{ display: 'inline-block', marginRight: 5 }}>
+            <Checkbox
+              checked={formValues.isPhone}
+              onChange={(e) => handleChangeFormValue('isPhone', e.target.checked)}
+            >
+              Дозвонились
+            </Checkbox>
+          </Form.Item>
+          <Form.Item style={{ display: 'inline-block' }}>
+            <Checkbox
+              checked={formValues.isComming}
+              onChange={(e) => handleChangeFormValue('isComming', e.target.checked)}
+            >
+              Пришел
+            </Checkbox>
+          </Form.Item>
+        </Form.Item>
         <Form.Item label="Описание">
           <Input.TextArea
             value={formValues.description}
@@ -143,7 +175,7 @@ function EventUpdateForm({
         </Form.Item>
         <Form.Item>
           <div className="ant-modal-footer">
-            <Button key="back" danger onClick={handleCancel}>
+            <Button className="headerLeft" key="back" danger onClick={handleCancel}>
               Закрыть
             </Button>
             <Button
@@ -154,6 +186,9 @@ function EventUpdateForm({
               htmlType="sumbit"
             >
               Изменить
+            </Button>
+            <Button disabled={role !== '1'} danger type="primary" onClick={dropShedule}>
+              Удалить
             </Button>
           </div>
         </Form.Item>

@@ -21,6 +21,8 @@ function EventAddForm({
     date: '',
     time: '',
     description: '',
+    isPhone: false,
+    isComming: false,
   });
   useEffect(() => {
     if (error) {
@@ -37,6 +39,8 @@ function EventAddForm({
       date: selectDateStr || new Date().toISOString().slice(0, 10),
       time: '',
       description: '',
+      isPhone: false,
+      isComming: false,
     });
   }, [isModalOpen]);
 
@@ -65,6 +69,8 @@ function EventAddForm({
       formData.append('begin', formValues.date);
       formData.append('time', formValues.time);
       formData.append('phone', formValues.phone);
+      formData.append('isPhone', formValues.isPhone);
+      formData.append('isComming', formValues.isComming);
       const res = await dispatch(addShedule({ formData }));
       if (!res?.error) {
         await dispatch(getAllShedule());
@@ -127,13 +133,16 @@ function EventAddForm({
         </Form.Item>
         <Form.Item style={{ marginBottom: 0 }}>
           <Form.Item style={{ display: 'inline-block', marginRight: 5 }}>
-            <Checkbox>Дозвонились</Checkbox>
+            <Checkbox onChange={(e) => handleChangeFormValue('isPhone', e.target.checked)}>
+              Дозвонились
+            </Checkbox>
           </Form.Item>
           <Form.Item style={{ display: 'inline-block' }}>
-            <Checkbox>Пришел</Checkbox>
+            <Checkbox onChange={(e) => handleChangeFormValue('isComming', e.target.checked)}>
+              Пришел
+            </Checkbox>
           </Form.Item>
         </Form.Item>
-
         <Form.Item label="Описание">
           <Input.TextArea
             value={formValues.description}

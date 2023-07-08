@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie/es6';
 axios.interceptors.request.use((config) => {
   const cookies = new Cookies();
   if (cookies.get('auth-token')) config.headers['auth-token'] = cookies.get('auth-token');
+  config.headers['Content-Type'] = 'application/json';
   return config;
 });
 
