@@ -96,7 +96,7 @@ function EventUpdateForm({
       <Form onFinish={handleOk} layout="vertical" style={{ maxWidth: 600, marginTop: '3rem' }}>
         <Form.Item
           rules={[{ required: true, message: 'Пожалуйста, введите ФИО!' }]}
-          label="Пациент"
+          label="Инициалы Пациент"
         >
           <Input
             value={formValues.title}
