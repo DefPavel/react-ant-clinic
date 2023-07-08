@@ -61,6 +61,7 @@ function Calendar() {
           label: el.full_name,
           value: el.key,
           color: el.color,
+          checked: el.status,
         }))}
       />
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>

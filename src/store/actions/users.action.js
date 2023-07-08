@@ -39,6 +39,24 @@ export const AddUser = createAsyncThunk('users/insert', async ({ formData }, thu
   }
 });
 
+export const UpdateChecked = createAsyncThunk('users/checked', async ({ id, status }, thunkApi) => {
+  try {
+    const cookies = new Cookies();
+    const response = await axios({
+      method: 'post',
+      url: `${host}/api/users/checked`,
+      data: { id, status },
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': cookies.get('auth-token'),
+      },
+    });
+    return response.data;
+  } catch (e) {
+    return thunkApi.rejectWithValue(e?.response?.data?.error || 'Произошла непредвиденная ошибка');
+  }
+});
+
 export const DeleteUser = createAsyncThunk('users/delete', async (id, thunkApi) => {
   try {
     const cookies = new Cookies();

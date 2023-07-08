@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select, Tag } from 'antd';
+import { useDispatch } from 'react-redux';
+import { UpdateChecked } from '../../store/actions/users.action';
+import { getAllShedule } from '../../store/actions/shedule.action';
 
 function ColorfulSelect({ options = [] }) {
+  const dispatch = useDispatch();
+  const [current, setCurrent] = useState([]);
+
+  useEffect(() => {
+    setCurrent(options.filter((el) => el.checked));
+  }, [options]);
+
   const tagRender = (props) => {
     const { label, value, closable, onClose } = props;
     const onPreventMouseDown = (event) => {
@@ -25,6 +35,18 @@ function ColorfulSelect({ options = [] }) {
     );
   };
 
+  const onSelect = async (id) => {
+    await dispatch(UpdateChecked({ id, status: true }));
+    await dispatch(getAllShedule());
+    setCurrent([...current, id]);
+  };
+
+  const onDeselect = async (id) => {
+    await dispatch(UpdateChecked({ id, status: false }));
+    await dispatch(getAllShedule());
+    setCurrent(current.filter((el) => el !== id));
+  };
+
   return (
     <Select
       mode="multiple"
@@ -34,8 +56,9 @@ function ColorfulSelect({ options = [] }) {
         width: '200px',
         marginBottom: '6px',
       }}
-      onDeselect={(e) => console.log(e)}
-      onSelect={(e) => console.log(e)}
+      value={current}
+      onDeselect={(e) => onDeselect(e)}
+      onSelect={(e) => onSelect(e)}
       options={options}
     />
   );
