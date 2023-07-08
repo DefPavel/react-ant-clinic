@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Modal, Button, Alert } from 'antd';
+import { Form, Input, Select, Modal, Button, Alert, Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
 import { scheduleReducer } from '../../store/reducers/shedule.reducer';
@@ -125,6 +125,15 @@ function EventAddForm({
             onChange={(e) => handleChangeFormValue('time', e.target.value)}
           />
         </Form.Item>
+        <Form.Item style={{ marginBottom: 0 }}>
+          <Form.Item style={{ display: 'inline-block', marginRight: 5 }}>
+            <Checkbox>Дозвонились</Checkbox>
+          </Form.Item>
+          <Form.Item style={{ display: 'inline-block' }}>
+            <Checkbox>Пришел</Checkbox>
+          </Form.Item>
+        </Form.Item>
+
         <Form.Item label="Описание">
           <Input.TextArea
             value={formValues.description}

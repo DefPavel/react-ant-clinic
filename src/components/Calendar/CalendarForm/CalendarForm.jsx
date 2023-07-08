@@ -26,7 +26,7 @@ function CalendarForm({
           dayMaxEvents
           selectable
           slotMinTime="08:00:00"
-          slotMaxTime="18:00:00"
+          slotMaxTime="23:00:00"
           firstDay={1}
           weekends
           height="450px"
@@ -35,7 +35,7 @@ function CalendarForm({
             // days of week. an array of zero-based day of week integers (0=Sunday)
             // daysOfWeek: [1, 2, 3, 4, 5], // Monday - Thursday
             startTime: '08:00', // a start time
-            endTime: '18:00', // an end time
+            endTime: '23:00', // an end time
           }}
           select={({ startStr }) => callbackOnselect(startStr)}
           eventClick={(info) => {

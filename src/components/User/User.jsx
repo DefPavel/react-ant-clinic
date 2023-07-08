@@ -49,6 +49,17 @@ function User() {
       sorter: (a, b) => a.role.length - b.role.length,
     },
     {
+      width: 30,
+      title: 'Цвет',
+      dataIndex: 'color',
+      key: 'color',
+      render: (id, { color }) => (
+        <Tag color={color} key={id}>
+          {color}
+        </Tag>
+      ),
+    },
+    {
       title: 'Действия',
       dataIndex: 'key',
       key: 'key',
