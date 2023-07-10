@@ -15,6 +15,7 @@ function Calendar() {
   const doctors = useSelector((store) => store.scheduleReducer?.doctors);
   const cookies = new Cookies();
   const role = cookies.get('role');
+  const user = cookies.get('user');
   const [isModalOpen, setIsModalAddOpen] = useState(false);
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [selectDateStr, setSelectDate] = useState('');
@@ -58,17 +59,32 @@ function Calendar() {
     setIsModalUpdateOpen(true);
   }, []);
 
+  console.log(doctors);
+
   return (
     <SecretMiddleware>
       <Typography.Title level={2}>Расписание</Typography.Title>
-      <ColorfulSelect
-        options={doctors.map((el) => ({
-          label: el.full_name,
-          value: el.key,
-          color: el.color,
-          checked: el.status,
-        }))}
-      />
+      {parseInt(role) === 2 ? (
+        <ColorfulSelect
+          options={doctors
+            .filter((el) => parseInt(el.key) === parseInt(user))
+            .map((el) => ({
+              label: el.full_name,
+              value: el.key,
+              color: el.color,
+              checked: true,
+            }))}
+        />
+      ) : (
+        <ColorfulSelect
+          options={doctors.map((el) => ({
+            label: el.full_name,
+            value: el.key,
+            color: el.color,
+            checked: el.status,
+          }))}
+        />
+      )}
       <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
         <CalendarForm
           isModalOpen={isModalOpen}
