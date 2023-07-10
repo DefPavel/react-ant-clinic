@@ -59,7 +59,7 @@ function Calendar() {
     setIsModalUpdateOpen(true);
   }, []);
 
-  console.log(doctors);
+  // console.log(doctors);
 
   return (
     <SecretMiddleware>
