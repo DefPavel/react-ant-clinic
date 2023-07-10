@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Select, Tag } from 'antd';
 import { useDispatch } from 'react-redux';
 import { UpdateChecked } from '../../store/actions/users.action';
-import { getAllShedule } from '../../store/actions/shedule.action';
+import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
 
 function ColorfulSelect({ options = [] }) {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState([]);
 
   useEffect(() => {
-    setCurrent(options.filter((el) => el.checked));
+    setCurrent(options.filter((el) => el.checked).map((el) => el.value));
   }, [options]);
 
   const tagRender = (props) => {
@@ -38,12 +38,14 @@ function ColorfulSelect({ options = [] }) {
   const onSelect = async (id) => {
     await dispatch(UpdateChecked({ id, status: true }));
     await dispatch(getAllShedule());
+    await dispatch(GetDoctors());
     setCurrent([...current, id]);
   };
 
   const onDeselect = async (id) => {
     await dispatch(UpdateChecked({ id, status: false }));
     await dispatch(getAllShedule());
+    await dispatch(GetDoctors());
     setCurrent(current.filter((el) => el !== id));
   };
 

@@ -55,6 +55,7 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       password: '',
       phone: '',
       role: '',
+      color: '#4096ff',
     });
     setIsModalOpen(false);
   };
@@ -70,7 +71,7 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       const res = await dispatch(AddUser({ formData }));
       if (!res?.error) {
         await dispatch(getAllUsers());
-        setIsModalOpen(false);
+        closeForm();
       }
     }
   };

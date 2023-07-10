@@ -13,11 +13,6 @@ function Calendar() {
   const dispatch = useDispatch();
   const scheduleEvents = useSelector((store) => store.scheduleReducer?.schedule);
   const doctors = useSelector((store) => store.scheduleReducer?.doctors);
-  useEffect(() => {
-    // выдать всех пользователей
-    dispatch(getAllShedule());
-    dispatch(GetDoctors());
-  }, []);
   const cookies = new Cookies();
   const role = cookies.get('role');
   const [isModalOpen, setIsModalAddOpen] = useState(false);
@@ -35,6 +30,12 @@ function Calendar() {
     isPhone: false,
     isComming: false,
   });
+
+  useEffect(() => {
+    // выдать всех пользователей
+    dispatch(getAllShedule());
+    dispatch(GetDoctors());
+  }, []);
 
   const onSelect = useCallback((dateSelect) => {
     setSelectDate(dateSelect);
