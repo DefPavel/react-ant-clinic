@@ -59,8 +59,6 @@ function Calendar() {
     setIsModalUpdateOpen(true);
   }, []);
 
-  // console.log(doctors);
-
   return (
     <SecretMiddleware>
       <Typography.Title level={2}>Расписание</Typography.Title>

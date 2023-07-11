@@ -37,7 +37,10 @@ function CalendarForm({
             startTime: '08:00', // a start time
             endTime: '23:00', // an end time
           }}
-          select={({ startStr }) => callbackOnselect(startStr)}
+          select={({ startStr }) => {
+            const date = new Date(startStr).toISOString().slice(0, 10);
+            callbackOnselect(date);
+          }}
           eventClick={(info) => {
             callbackEventselect({
               id: info.event.id,

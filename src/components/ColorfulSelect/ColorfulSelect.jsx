@@ -49,8 +49,6 @@ function ColorfulSelect({ options = [] }) {
     setCurrent(current.filter((el) => el !== id));
   };
 
-  console.log(options);
-
   return (
     <Select
       mode="multiple"
