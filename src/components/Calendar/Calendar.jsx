@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from 'antd';
 import Cookies from 'universal-cookie/es6';
-import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
+import { getAllShedule, getSheduleByDoctor, GetDoctors } from '../../store/actions/shedule.action';
 import { ColorfulSelect } from '../ColorfulSelect';
 import { CalendarForm } from './CalendarForm';
 import { EventAddForm } from '../Event/EventAdd';
@@ -34,7 +34,7 @@ function Calendar() {
 
   useEffect(() => {
     // выдать всех пользователей
-    dispatch(getAllShedule());
+    dispatch(role === 1 ? getAllShedule() : getSheduleByDoctor(user));
     dispatch(GetDoctors());
   }, []);
 
@@ -72,6 +72,7 @@ function Calendar() {
               color: el.color,
               checked: true,
             }))}
+          style={{ display: 'none' }}
         />
       ) : (
         <ColorfulSelect

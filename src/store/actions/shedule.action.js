@@ -15,6 +15,18 @@ export const getAllShedule = createAsyncThunk('schedule/get', async (thunkApi) =
   }
 });
 
+export const getSheduleByDoctor = createAsyncThunk('schedule/byDoctor', async (id, thunkApi) => {
+  try {
+    const response = await axios({
+      method: 'get',
+      url: `${host}/api/schedule/get/${id}`,
+    });
+    return response.data;
+  } catch (e) {
+    return thunkApi.rejectWithValue(e?.response?.data?.error || 'Произошла непредвиденная ошибка');
+  }
+});
+
 export const GetDoctors = createAsyncThunk('schedule/getDoctors', async (thunkApi) => {
   try {
     const response = await axios({

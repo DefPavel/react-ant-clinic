@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllShedule, GetDoctors } from '../actions/shedule.action';
+import { getAllShedule, getSheduleByDoctor, GetDoctors } from '../actions/shedule.action';
 import { defaultFulfilledReducer, pendingReducer, rejectedReducer } from './base.reducer';
 
 const initialState = {
@@ -24,6 +24,12 @@ export const scheduleReducer = createSlice({
     },
     [getAllShedule.pending]: pendingReducer,
     [getAllShedule.rejected]: rejectedReducer,
+    [getSheduleByDoctor.fulfilled]: (state, action) => {
+      state.schedule = action.payload || [];
+      defaultFulfilledReducer(state);
+    },
+    [getSheduleByDoctor.pending]: pendingReducer,
+    [getSheduleByDoctor.rejected]: rejectedReducer,
     [GetDoctors.fulfilled]: (state, action) => {
       state.doctors = action.payload || [];
       defaultFulfilledReducer(state);

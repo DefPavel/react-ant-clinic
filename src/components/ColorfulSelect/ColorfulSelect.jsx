@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { UpdateChecked } from '../../store/actions/users.action';
 import { getAllShedule, GetDoctors } from '../../store/actions/shedule.action';
 
-function ColorfulSelect({ options = [] }) {
+function ColorfulSelect({ options = [], style = {} }) {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState([]);
 
@@ -55,6 +55,7 @@ function ColorfulSelect({ options = [] }) {
       showArrow
       tagRender={tagRender}
       style={{
+        ...style,
         width: '200px',
         marginBottom: '6px',
       }}
