@@ -13,6 +13,45 @@
 		order: 2;
 	}
 }
+/*
+ Наработки
+.calendar {
+	min-width: 300px;
+}
+
+.calendar .fc-view {
+    overflow-x: scroll;
+}
+
+.calendar .fc-view > table {
+    width: 150%;
+}
+*/
+/*
+.calendar .fc-view {
+	overflow-x: auto;
+  }
+
+  .calendar .fc-view > table {
+	min-width: 100%;
+	width: 2000px;
+  }
+  
+  .calendar .fc-time-grid .fc-slats {
+	z-index: 4;
+	pointer-events: none;
+  }
+  
+  .calendar .fc-scroller.fc-time-grid-container {
+	overflow: initial !important;
+  }
+  
+  .calendar .fc-axis {
+	position: sticky;
+	left: 0;
+	background: white;
+  }
+*/
 
 .fc-timegrid-event-harness {
 	font-size: 15px;

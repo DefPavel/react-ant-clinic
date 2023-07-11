@@ -59,7 +59,7 @@ function CalendarForm({
           headerToolbar={{
             start: 'today,dayGridMonth,timeGridWeek,timeGridDay',
             center: 'title',
-            end: 'new prevYear,prev,next,nextYear',
+            end: 'new,prevYear,prev,next,nextYear',
           }}
           customButtons={{
             new: {
