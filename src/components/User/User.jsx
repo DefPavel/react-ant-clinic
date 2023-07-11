@@ -93,7 +93,7 @@ function User() {
           </Button>
         </Row>
 
-        <Table dataSource={usersData} columns={columns} scroll={{ x: 800 }} />
+        <Table dataSource={usersData} columns={columns} scroll={{ x: 900, y: 400 }} />
         <UserForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </SecretRolesMiddleware>

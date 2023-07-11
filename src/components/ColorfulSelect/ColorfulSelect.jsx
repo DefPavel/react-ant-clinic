@@ -56,8 +56,8 @@ function ColorfulSelect({ options = [], style = {} }) {
       tagRender={tagRender}
       style={{
         ...style,
-        width: '200px',
         marginBottom: '6px',
+        minWidth: '200px',
       }}
       value={current}
       onDeselect={(e) => onDeselect(e)}

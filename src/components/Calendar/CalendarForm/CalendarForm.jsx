@@ -29,7 +29,7 @@ function CalendarForm({
           slotMaxTime="23:00:00"
           firstDay={1}
           weekends
-          height="450px"
+          height="550px"
           locale={ruLocale}
           businessHours={{
             // days of week. an array of zero-based day of week integers (0=Sunday)
