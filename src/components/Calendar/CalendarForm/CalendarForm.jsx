@@ -24,6 +24,8 @@ function CalendarForm({
           buttonIcons
           navLinks
           dayMaxEvents
+          slotEventOverlap={false}
+          handleWindowResize
           selectable
           slotMinTime="08:00:00"
           slotMaxTime="23:00:00"
@@ -32,6 +34,9 @@ function CalendarForm({
           height="550px"
           locale={ruLocale}
           businessHours={{
+            // Интервал даты !!!!
+            //  slotDuration="00:10:00"
+            // slotLabelInterval="00:10:00"
             // days of week. an array of zero-based day of week integers (0=Sunday)
             // daysOfWeek: [1, 2, 3, 4, 5], // Monday - Thursday
             startTime: '08:00', // a start time

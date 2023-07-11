@@ -34,7 +34,7 @@ function Calendar() {
 
   useEffect(() => {
     // выдать всех пользователей
-    dispatch(role === 1 ? getAllShedule() : getSheduleByDoctor(user));
+    dispatch(role === '1' ? getAllShedule() : getSheduleByDoctor(user));
     dispatch(GetDoctors());
   }, []);
 
