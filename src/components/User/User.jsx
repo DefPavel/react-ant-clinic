@@ -17,14 +17,14 @@ function User() {
 
   const columns = [
     {
-      width: 50,
+      width: 10,
       title: 'Инициалы',
       dataIndex: 'full_name',
       key: 'full_name',
       sorter: (a, b) => a.full_name.length - b.full_name.length,
     },
     {
-      width: 40,
+      width: 10,
       title: 'Логин',
       dataIndex: 'username',
       key: 'username',
@@ -37,7 +37,7 @@ function User() {
       key: 'phone',
     },
     {
-      width: 50,
+      width: 10,
       title: 'Роль',
       dataIndex: 'role',
       key: 'role',
@@ -49,7 +49,7 @@ function User() {
       sorter: (a, b) => a.role.length - b.role.length,
     },
     {
-      width: 30,
+      width: 10,
       title: 'Цвет',
       dataIndex: 'color',
       key: 'color',
@@ -63,7 +63,7 @@ function User() {
       title: 'Действия',
       dataIndex: 'key',
       key: 'key',
-      width: 30,
+      width: 10,
       render: (id) => (
         <Space size="middle">
           <Button
@@ -93,7 +93,7 @@ function User() {
           </Button>
         </Row>
 
-        <Table dataSource={usersData} columns={columns} scroll={{ x: 900 }} />
+        <Table size="sm" dataSource={usersData} columns={columns} scroll={{ x: 900 }} />
         <UserForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </SecretRolesMiddleware>

@@ -30,6 +30,7 @@ function HeaderItem({ collapsed = true, setCollapsed = (f) => f }) {
         borderBottom: '1px solid rgba(0, 0, 0, 0.15)',
         fontWeight: '500',
         backgroundColor: '#ffffff',
+        height: '55px',
       }}
     >
       <Space align="center">
@@ -44,9 +45,9 @@ function HeaderItem({ collapsed = true, setCollapsed = (f) => f }) {
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
           style={{
-            fontSize: '20px',
-            width: 63,
-            height: 63,
+            fontSize: '18px',
+            width: 60,
+            height: 60,
           }}
         />
       </Space>
@@ -57,9 +58,9 @@ function HeaderItem({ collapsed = true, setCollapsed = (f) => f }) {
           icon={<ReloadOutlined />}
           onClick={() => window.location.reload()}
           style={{
-            fontSize: '20px',
-            width: 63,
-            height: 63,
+            fontSize: '18px',
+            width: 60,
+            height: 60,
           }}
         />
         <Button

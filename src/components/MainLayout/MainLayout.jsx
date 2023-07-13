@@ -12,7 +12,7 @@ function MainLayout({ collapsed }) {
   return (
     <Layout>
       <SideBarItem collapsed={collapsed} setPage={setPage} />
-      <Content style={{ margin: '16px 16px 20px 16px' }}>
+      <Content style={{ margin: '0px 16px 16px 20px' }}>
         {page === 'user' && <User />}
         {page === 'calendar' && <Calendar />}
       </Content>

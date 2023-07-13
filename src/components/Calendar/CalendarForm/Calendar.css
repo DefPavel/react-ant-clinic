@@ -52,6 +52,11 @@
 	background: white;
   }
 */
+/*.fc .fc-scrollgrid-liquid {
+	height: 560px;
+	max-height: fit-content;
+}
+*/
 
 .fc-timegrid-event-harness {
 	font-size: 15px;
