@@ -31,7 +31,6 @@ function CalendarForm({
           slotMaxTime="23:00:00"
           firstDay={1}
           weekends
-          height="550px"
           locale={ruLocale}
           businessHours={{
             // Интервал даты !!!!
