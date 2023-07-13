@@ -2,12 +2,18 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from 'antd';
 import Cookies from 'universal-cookie/es6';
-import { getAllShedule, getSheduleByDoctor, GetDoctors } from '../../store/actions/shedule.action';
+import {
+  getAllShedule,
+  getSheduleByDoctor,
+  getSheduleByDate,
+  GetDoctors,
+} from '../../store/actions/shedule.action';
 import { ColorfulSelect } from '../ColorfulSelect';
 import { CalendarForm } from './CalendarForm';
 import { EventAddForm } from '../Event/EventAdd';
 import { EventUpdateForm } from '../Event/EventUpdate';
 import { SecretMiddleware } from '../../middlewares/privates.middleware';
+import { findDateSpace } from '../../utils/findDateSpace';
 
 function Calendar() {
   const dispatch = useDispatch();
@@ -34,8 +40,15 @@ function Calendar() {
 
   useEffect(() => {
     // выдать всех пользователей
-    dispatch(role === '1' ? getAllShedule() : getSheduleByDoctor(user));
-    dispatch(GetDoctors());
+    (async () => {
+      await dispatch(role === '1' ? getAllShedule() : getSheduleByDoctor(user));
+      const doctorShedule = await dispatch(getSheduleByDate({ id: 13, date: '2023-07-13 19:35' }));
+      await dispatch(GetDoctors());
+
+      console.log(
+        findDateSpace(doctorShedule.payload.map((el) => el.hire_date.split(' ')[1]).sort()),
+      );
+    })();
   }, []);
 
   const onSelect = useCallback((dateSelect) => {
