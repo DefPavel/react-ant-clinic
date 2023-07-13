@@ -32,7 +32,7 @@ function CalendarForm({
           firstDay={1}
           weekends
           locale={ruLocale}
-          height="700px"
+          height="600px"
           businessHours={{
             // Интервал даты !!!!
             //  slotDuration="00:10:00"
