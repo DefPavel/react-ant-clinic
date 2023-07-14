@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PieChartOutlined, UserOutlined } from '@ant-design/icons';
+import { PieChartOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
 import Cookies from 'universal-cookie/es6';
 import { Layout, Menu } from 'antd';
 import './SideBar.css';
@@ -20,6 +20,11 @@ function SideBarItem({ collapsed = false, setPage = (f) => f }) {
       key: 'user',
       icon: <UserOutlined style={{ fontSize: '18px' }} />,
       label: 'Пользователи',
+    },
+    {
+      key: 'message',
+      icon: <MessageOutlined style={{ fontSize: '18px' }} />,
+      label: 'Сообщения',
     },
   ];
 
