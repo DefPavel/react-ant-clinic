@@ -26,7 +26,7 @@ function LoginForm({
         <Row className="header">
           <img src={Logo} alt="logo" className="logo" />
           <p>Авторизация</p>
-          <p>Медицинская клиника</p>
+          <p>Дерматологическая клиника</p>
         </Row>
         <Row className="body">
           <Form.Item
