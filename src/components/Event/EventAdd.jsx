@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Modal, Button, Alert, Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllShedule, addShedule } from '../../store/actions/shedule.action';
+import { getAllShedule, getSheduleByDate, addShedule } from '../../store/actions/shedule.action';
 import { scheduleReducer } from '../../store/reducers/shedule.reducer';
+import { findDateSpace } from '../../utils/findDateSpace';
 
 function EventAddForm({
   selectDateStr,
@@ -46,6 +47,27 @@ function EventAddForm({
 
   const handleChangeFormValue = (field, val) => {
     setFormValues({ ...formValues, [field]: val });
+  };
+
+  const onDoctorChange = async (e) => {
+    let freeTime = false;
+    let date = new Date();
+
+    while (freeTime === false) {
+      console.log(freeTime);
+      const { payload: shedulesByDay } = await dispatch(getSheduleByDate({ id: e, date }));
+      const nextDay = new Date(date);
+
+      freeTime = findDateSpace(shedulesByDay.map((el) => el.hire_date.split(' ')[1]).sort(), 1800);
+      nextDay.setDate(date.getDate() + 1);
+      date = nextDay;
+    }
+
+    setFormValues({
+      ...formValues,
+      doctor: e,
+      time: freeTime,
+    });
   };
 
   const handleCancel = () => {
@@ -95,7 +117,7 @@ function EventAddForm({
         <Form.Item label="Доктор">
           <Select
             value={formValues.doctor}
-            onChange={(e) => handleChangeFormValue('doctor', e)}
+            onChange={(e) => onDoctorChange(e)}
             options={doctors.map((item) => ({
               value: item.key,
               label: item.full_name,

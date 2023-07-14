@@ -6,7 +6,8 @@ const convertToTime = (timefloat) => {
 };
 
 export const findDateSpace = (timeArray = [], interval = 3600) => {
-  const intervalInHours = interval / 60 / 60;
+  const intervalInHours = parseFloat(`0.${interval / 60}`);
+  console.log(intervalInHours);
   for (let i = 8.0; i < 18.0; i += intervalInHours) {
     if (
       timeArray.every((el) => {
@@ -16,4 +17,6 @@ export const findDateSpace = (timeArray = [], interval = 3600) => {
     )
       return convertToTime(i);
   }
+
+  return false;
 };
