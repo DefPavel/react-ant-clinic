@@ -54,13 +54,30 @@ function EventAddForm({
     let freeTime = false;
     const date = moment(selectDateStr || []).add(3, 'hour');
 
-    const { payload: shedulesByDay } = await dispatch(getSheduleByDate({ id: e, date }));
-    freeTime = findDateSpace(shedulesByDay.map((el) => el.hire_date.split(' ')[1]).sort(), 30);
+    switch (moment(date).subtract(3, 'hour').weekday()) {
+      case 6:
+        date.add(2, 'day');
+        break;
+      case 0:
+        date.add(1, 'day');
+        break;
+      default:
+        break;
+    }
+
+    while (!freeTime) {
+      const { payload: shedulesByDay } = await dispatch(getSheduleByDate({ id: e, date }));
+      freeTime = findDateSpace(shedulesByDay.map((el) => el.hire_date.split(' ')[1]).sort(), 120);
+      if (!freeTime) {
+        date.weekday() === 5 ? date.add(3, 'day') : date.add(1, 'day');
+      }
+    }
 
     setFormValues({
       ...formValues,
       doctor: e,
-      time: freeTime,
+      date: date.utc().format().split('T')[0],
+      time: freeTime || '',
     });
   };
 

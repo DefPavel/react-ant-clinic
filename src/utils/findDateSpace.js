@@ -12,13 +12,9 @@ const checkInterval = (currTime, checkTime, interval) => {
 
 export const findDateSpace = (timeArray = [], interval = 60) => {
   const startTime = moment(8 * 60 * 60 * 1000);
-  const endTime = moment(18 * 60 * 60 * 1000);
+  const endTime = moment(18 * 60 * 60 * 1000).subtract(interval, 'minutes');
 
-  for (
-    let freeTime = startTime;
-    freeTime < endTime.subtract(interval, 'minutes');
-    freeTime.add(interval, 'minutes')
-  ) {
+  for (let freeTime = startTime; freeTime < endTime; freeTime.add(interval, 'minutes')) {
     if (timeArray.every((el) => checkInterval(freeTime, el, interval)))
       return freeTime.utc().format().split('T')[1].slice(0, 5);
   }
