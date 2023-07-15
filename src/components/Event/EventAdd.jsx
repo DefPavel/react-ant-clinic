@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Modal, Button, Alert, Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 import { getAllShedule, getSheduleByDate, addShedule } from '../../store/actions/shedule.action';
 import { scheduleReducer } from '../../store/reducers/shedule.reducer';
 import { findDateSpace } from '../../utils/findDateSpace';
@@ -51,17 +52,10 @@ function EventAddForm({
 
   const onDoctorChange = async (e) => {
     let freeTime = false;
-    let date = new Date();
+    const date = moment(selectDateStr || []).add(3, 'hour');
 
-    while (freeTime === false) {
-      console.log(freeTime);
-      const { payload: shedulesByDay } = await dispatch(getSheduleByDate({ id: e, date }));
-      const nextDay = new Date(date);
-
-      freeTime = findDateSpace(shedulesByDay.map((el) => el.hire_date.split(' ')[1]).sort(), 1800);
-      nextDay.setDate(date.getDate() + 1);
-      date = nextDay;
-    }
+    const { payload: shedulesByDay } = await dispatch(getSheduleByDate({ id: e, date }));
+    freeTime = findDateSpace(shedulesByDay.map((el) => el.hire_date.split(' ')[1]).sort(), 30);
 
     setFormValues({
       ...formValues,
