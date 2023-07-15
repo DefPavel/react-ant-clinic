@@ -67,7 +67,7 @@ function EventAddForm({
 
     while (!freeTime) {
       const { payload: shedulesByDay } = await dispatch(getSheduleByDate({ id: e, date }));
-      freeTime = findDateSpace(shedulesByDay.map((el) => el.hire_date.split(' ')[1]).sort(), 120);
+      freeTime = findDateSpace(shedulesByDay.map((el) => el.hire_date.split(' ')[1]).sort(), 15);
       if (!freeTime) {
         date.weekday() === 5 ? date.add(3, 'day') : date.add(1, 'day');
       }
