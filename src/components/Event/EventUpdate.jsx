@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Modal, Button, Alert, Checkbox } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAllShedule, updateShedule, deleteShedule } from '../../store/actions/shedule.action';
-import { scheduleReducer } from '../../store/reducers/shedule.reducer';
 
 function EventUpdateForm({
   objectValue,
@@ -12,8 +11,7 @@ function EventUpdateForm({
   role = '',
 }) {
   const dispatch = useDispatch();
-  const { error } = useSelector((store) => store.scheduleReducer);
-  const { clearError } = scheduleReducer.actions;
+  const [error, setError] = useState();
   const [formValues, setFormValues] = useState({
     id: '',
     doctor: '',
@@ -27,7 +25,7 @@ function EventUpdateForm({
   });
   useEffect(() => {
     if (error) {
-      dispatch(clearError());
+      setError('');
     }
   }, [formValues]);
 
@@ -45,15 +43,6 @@ function EventUpdateForm({
       isComming: objectValue?.isComming,
     });
   }, [objectValue]);
-
-  const errorAlert =
-    error !== '' ? (
-      <div>
-        <Alert message={error} type="error" showIcon closable />
-      </div>
-    ) : (
-      ''
-    );
 
   const handleChangeFormValue = (field, val) => {
     setFormValues({ ...formValues, [field]: val });
@@ -87,6 +76,20 @@ function EventUpdateForm({
       if (!res?.error) {
         await dispatch(getAllShedule());
         setIsModalOpen(false);
+      } else {
+        setError(
+          <div>
+            <Alert
+              message={res?.payload}
+              type="error"
+              showIcon
+              closable
+              onClose={() => {
+                setError('');
+              }}
+            />
+          </div>,
+        );
       }
     }
   };
@@ -192,7 +195,7 @@ function EventUpdateForm({
             </Button>
           </div>
         </Form.Item>
-        {errorAlert}
+        {error}
       </Form>
     </Modal>
   );

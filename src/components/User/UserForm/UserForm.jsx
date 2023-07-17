@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, Button, Modal, Alert, ColorPicker } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAllUsers, AddUser } from '../../../store/actions/users.action';
-import { userReducer } from '../../../store/reducers/users.reducer';
 
 function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
   const dispatch = useDispatch();
-  const { error } = useSelector((store) => store.userReducer);
-  const { clearError } = userReducer.actions;
+  const [error, setError] = useState();
   const [formValues, setFormValues] = useState({
     fullname: '',
     username: '',
@@ -31,18 +29,9 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
 
   useEffect(() => {
     if (error) {
-      dispatch(clearError());
+      setError('');
     }
   }, [formValues]);
-
-  const errorAlert =
-    error !== '' ? (
-      <div>
-        <Alert message={error} type="error" showIcon closable />
-      </div>
-    ) : (
-      ''
-    );
 
   const handleChangeFormValue = (field, val) => {
     setFormValues({ ...formValues, [field]: val });
@@ -72,6 +61,20 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       if (!res?.error) {
         await dispatch(getAllUsers());
         closeForm();
+      } else {
+        setError(
+          <div>
+            <Alert
+              message={res?.payload}
+              type="error"
+              showIcon
+              closable
+              onClose={() => {
+                setError('');
+              }}
+            />
+          </div>,
+        );
       }
     }
   };
@@ -150,7 +153,7 @@ function UserForm({ isModalOpen, setIsModalOpen = (f) => f }) {
             </Button>
           </div>
         </Form.Item>
-        {errorAlert}
+        {error}
       </Form>
     </Modal>
   );

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Modal, Button, Alert, Checkbox } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { getAllShedule, getSheduleByDate, addShedule } from '../../store/actions/shedule.action';
-import { scheduleReducer } from '../../store/reducers/shedule.reducer';
 import { findDateSpace } from '../../utils/findDateSpace';
 
 function EventAddForm({
@@ -14,8 +13,7 @@ function EventAddForm({
   role = '',
 }) {
   const dispatch = useDispatch();
-  const { error } = useSelector((store) => store.scheduleReducer);
-  const { clearError } = scheduleReducer.actions;
+  const [error, setError] = useState();
   const [formValues, setFormValues] = useState({
     doctor: '',
     title: '',
@@ -28,7 +26,7 @@ function EventAddForm({
   });
   useEffect(() => {
     if (error) {
-      dispatch(clearError());
+      setError('');
     }
   }, [formValues]);
 
@@ -85,14 +83,6 @@ function EventAddForm({
     setIsModalOpen(false);
   };
 
-  const errorAlert = error ? (
-    <div>
-      <Alert message={error} type="error" showIcon closable />
-    </div>
-  ) : (
-    ''
-  );
-
   const handleOk = async () => {
     if (formValues.date && formValues.time) {
       const formData = new FormData();
@@ -108,6 +98,20 @@ function EventAddForm({
       if (!res?.error) {
         await dispatch(getAllShedule());
         setIsModalOpen(false);
+      } else {
+        setError(
+          <div>
+            <Alert
+              message={res?.payload}
+              type="error"
+              showIcon
+              closable
+              onClose={() => {
+                setError('');
+              }}
+            />
+          </div>,
+        );
       }
     }
   };
@@ -198,7 +202,7 @@ function EventAddForm({
             </Button>
           </div>
         </Form.Item>
-        {errorAlert}
+        {error}
       </Form>
     </Modal>
   );
