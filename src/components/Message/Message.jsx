@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Space, Row, Button, Typography } from 'antd';
-import { getAllMessage } from '../../store/actions/message.action';
+import { getAllMessage, deleteMessage } from '../../store/actions/message.action';
 import { SecretRolesMiddleware } from '../../middlewares/privates.middleware';
+import { MessageForm } from './MessageForm';
 
 function Message() {
   const dispatch = useDispatch();
@@ -35,7 +36,14 @@ function Message() {
       width: 10,
       render: (id) => (
         <Space size="middle">
-          <Button onClick={async () => {}}>Удалить</Button>
+          <Button
+            onClick={async () => {
+              await dispatch(deleteMessage(id));
+              await dispatch(getAllMessage());
+            }}
+          >
+            Удалить
+          </Button>
         </Space>
       ),
     },
@@ -55,6 +63,7 @@ function Message() {
           </Button>
         </Row>
         <Table size="sm" dataSource={messageData} columns={columns} scroll={{ x: 900 }} />
+        <MessageForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </SecretRolesMiddleware>
   );
