@@ -6,7 +6,7 @@ import { MainLayout } from '../../components/MainLayout';
 function Main() {
   const [collapsed, setCollapsed] = useState(true);
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '100vh', minWidth: '600px' }}>
       <HeaderItem collapsed={collapsed} setCollapsed={setCollapsed} />
       <MainLayout collapsed={collapsed} />
     </Layout>

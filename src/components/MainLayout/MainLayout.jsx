@@ -33,10 +33,16 @@ function MainLayout({ collapsed }) {
         )}
         {page === 'calendar' && (
           <SecretMiddleware>
-            <section style={{ display: 'grid', gridTemplateColumns: '3fr 7fr' }}>
+            <section style={{ display: 'flex', minWidth: '100%' }}>
               <Typography.Title level={2}>Расписание</Typography.Title>
               {message ? (
-                <div style={{ placeSelf: 'end', margin: '25px 0 15px 0', minWidth: '250px' }}>
+                <div
+                  style={{
+                    placeSelf: 'end',
+                    margin: '25px 0 15px auto',
+                    minWidth: '250px',
+                  }}
+                >
                   <Alert message={message} closable />{' '}
                 </div>
               ) : (
