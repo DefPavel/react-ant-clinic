@@ -26,7 +26,6 @@ function Message() {
       title: 'Дата',
       dataIndex: 'date_crt',
       key: 'date_crt',
-      sorter: (a, b) => a.date_crt.length - b.date_crt.length,
     },
     {
       title: 'Действия',
