@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Modal, Alert } from 'antd';
 import { useDispatch } from 'react-redux';
-import { getAllMessage, createMessage } from '../../../store/actions/message.action';
+import {
+  getAllMessage,
+  getTodayMessage,
+  createMessage,
+} from '../../../store/actions/message.action';
 
 function MessageForm({ isModalOpen, setIsModalOpen = (f) => f }) {
   const dispatch = useDispatch();
@@ -44,6 +48,7 @@ function MessageForm({ isModalOpen, setIsModalOpen = (f) => f }) {
       const res = await dispatch(createMessage({ formData }));
       if (!res?.error) {
         await dispatch(getAllMessage());
+        await dispatch(getTodayMessage());
         closeForm();
       } else {
         setError(

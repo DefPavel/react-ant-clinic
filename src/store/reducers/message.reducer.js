@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllMessage, createMessage } from '../actions/message.action';
+import { getAllMessage, createMessage, getTodayMessage } from '../actions/message.action';
 import { defaultFulfilledReducer, pendingReducer, rejectedReducer } from './base.reducer';
 
 const initialState = {
   users: [],
   isLoading: false,
+  todayMessage: '',
   error: '',
 };
 
@@ -24,6 +25,13 @@ export const messageReducer = createSlice({
     },
     [getAllMessage.pending]: pendingReducer,
     [getAllMessage.rejected]: rejectedReducer,
+    [getTodayMessage.fulfilled]: (state, action) => {
+      state.todayMessage = action.payload?.name || '';
+      state.error = '';
+      defaultFulfilledReducer(state);
+    },
+    [getTodayMessage.pending]: pendingReducer,
+    [getTodayMessage.rejected]: rejectedReducer,
     [createMessage.fulfilled]: defaultFulfilledReducer,
     [createMessage.pending]: pendingReducer,
     [createMessage.rejected]: rejectedReducer,

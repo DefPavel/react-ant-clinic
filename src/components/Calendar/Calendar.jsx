@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography } from 'antd';
 import Cookies from 'universal-cookie/es6';
 import { getAllShedule, getSheduleByDoctor, GetDoctors } from '../../store/actions/shedule.action';
 import { ColorfulSelect } from '../ColorfulSelect';
 import { CalendarForm } from './CalendarForm';
 import { EventAddForm } from '../Event/EventAdd';
 import { EventUpdateForm } from '../Event/EventUpdate';
-import { SecretMiddleware } from '../../middlewares/privates.middleware';
 
 function Calendar() {
   const dispatch = useDispatch();
@@ -62,8 +60,7 @@ function Calendar() {
   }, []);
 
   return (
-    <SecretMiddleware>
-      <Typography.Title level={2}>Расписание</Typography.Title>
+    <>
       {parseInt(role) === 2 ? (
         <ColorfulSelect
           options={doctors
@@ -112,7 +109,7 @@ function Calendar() {
           role={role}
         />
       </div>
-    </SecretMiddleware>
+    </>
   );
 }
 

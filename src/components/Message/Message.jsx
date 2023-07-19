@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table, Space, Row, Button, Typography } from 'antd';
-import { getAllMessage, deleteMessage } from '../../store/actions/message.action';
-import { SecretRolesMiddleware } from '../../middlewares/privates.middleware';
+import { Table, Space, Row, Button } from 'antd';
+import { getAllMessage, deleteMessage, getTodayMessage } from '../../store/actions/message.action';
 import { MessageForm } from './MessageForm';
 
 function Message() {
@@ -40,6 +39,7 @@ function Message() {
             onClick={async () => {
               await dispatch(deleteMessage(id));
               await dispatch(getAllMessage());
+              await dispatch(getTodayMessage());
             }}
           >
             Удалить
@@ -50,22 +50,19 @@ function Message() {
   ];
 
   return (
-    <SecretRolesMiddleware>
-      <Typography.Title level={2}>Сообщения</Typography.Title>
-      <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
-        <Row style={{ marginBottom: '1rem', justifyContent: 'end' }}>
-          <Button
-            style={{ backgroundColor: '#0f7986' }}
-            type="primary"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Создать
-          </Button>
-        </Row>
-        <Table size="sm" dataSource={messageData} columns={columns} scroll={{ x: 900 }} />
-        <MessageForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      </div>
-    </SecretRolesMiddleware>
+    <div style={{ padding: 24, minHeight: 360, background: '#ffffff' }}>
+      <Row style={{ marginBottom: '1rem', justifyContent: 'end' }}>
+        <Button
+          style={{ backgroundColor: '#0f7986' }}
+          type="primary"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Создать
+        </Button>
+      </Row>
+      <Table size="sm" dataSource={messageData} columns={columns} scroll={{ x: 900 }} />
+      <MessageForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+    </div>
   );
 }
 

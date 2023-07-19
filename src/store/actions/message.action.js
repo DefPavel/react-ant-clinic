@@ -28,6 +28,18 @@ export const getAllMessage = createAsyncThunk('message/get', async (thunkApi) =>
   }
 });
 
+export const getTodayMessage = createAsyncThunk('message/today', async (thunkApi) => {
+  try {
+    const response = await axios({
+      method: 'get',
+      url: `${host}/api/message/today`,
+    });
+    return response.data;
+  } catch (e) {
+    return thunkApi.rejectWithValue(e?.response?.data?.error || 'Произошла непредвиденная ошибка');
+  }
+});
+
 export const deleteMessage = createAsyncThunk('message/delete', async (id, thunkApi) => {
   try {
     const response = await axios({
